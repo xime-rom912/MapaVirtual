@@ -1,4 +1,4 @@
-
+// ignore_for_file: import_of_legacy_library_into_null_safe
 
 import 'dart:async';
 
@@ -10,7 +10,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({super.key});
 
   @override
@@ -33,10 +32,55 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
+  BitmapDescriptor bitmapClassroom = BitmapDescriptor.defaultMarker;
+  Set<GroundOverlay> classroomsGroundOverlaysSet = <GroundOverlay>{};
+
+  @override
+  void initState() {
+    super.initState();
+
+    // drawOverlay() {
+    classroomsGroundOverlaysSet.add(GroundOverlay(
+      groundOverlayId: GroundOverlayId("TEST"),
+      bitmapDescriptor: bitmapClassroom,
+      height: 100,
+      width: 100,
+      location: const LatLng(28.703547206436017, -106.13976759688042),
+      onTap: () {
+        debugPrint("The image is working, sheesh!");
+      },
+      transparency: 0,
+    ));
+    // }
+
+    BitmapDescriptor.fromAssetImage(
+            const ImageConfiguration(size: Size(100, 100)),
+            'assets/png/school.png')
+        .then((onValue) {
+      debugPrint("JIJIJIJA $onValue");
+      bitmapClassroom = onValue;
+      // drawOverlay();
+    });
+
+    /// put this function on the initState as long as it called to be first on opening
+    // fromAsset() async {
+    //   /// e.g. location of the asset
+    //   const imageURL = "assets/png/school.png";
+
+    //   /// the function to change the icon
+    //   final myCustomicon = await BitmapDescriptor.fromAssetImage(
+    //       ImageConfiguration.empty, imageURL);
+    //   setState(() {
+    //     bitmapClassroom = myCustomicon;
+    //   });
+    // }
+
+    // fromAsset();
+  }
 
   static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
+    target: LatLng(28.703547206436017, -106.13976759688042),
     zoom: 14.4746,
   );
 
@@ -55,14 +99,14 @@ class MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-      ),
+      appBar: AppBar(),
       body: GoogleMap(
         mapType: MapType.hybrid,
         initialCameraPosition: _kGooglePlex,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
+        groundOverlays: classroomsGroundOverlaysSet,
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _goToTheLake,
@@ -71,6 +115,7 @@ class MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
   Future<void> _goToTheLake() async {
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
