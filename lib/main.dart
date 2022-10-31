@@ -58,7 +58,7 @@ class MyHomePageState extends State<MyHomePage> {
             const ImageConfiguration(size: Size(100, 100)),
             'assets/png/school.png')
         .then((onValue) {
-      debugPrint("JIJIJIJA $onValue");
+      debugPrint("Image obtained: $onValue");
       bitmapClassroom = onValue;
       // drawOverlay();
     });
