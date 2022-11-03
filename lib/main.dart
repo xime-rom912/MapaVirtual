@@ -33,35 +33,32 @@ class MyHomePage extends StatefulWidget {
 
 class MyHomePageState extends State<MyHomePage> {
   final Completer<GoogleMapController> _controller = Completer();
-  BitmapDescriptor bitmapClassroom = BitmapDescriptor.defaultMarker;
   Set<GroundOverlay> classroomsGroundOverlaysSet = <GroundOverlay>{};
 
   @override
   void initState() {
     super.initState();
 
-    // drawOverlay() {
-    classroomsGroundOverlaysSet.add(GroundOverlay(
-      groundOverlayId: GroundOverlayId("TEST"),
-      bitmapDescriptor: bitmapClassroom,
-      height: 100,
-      width: 100,
-      location: const LatLng(28.703547206436017, -106.13976759688042),
-      onTap: () {
-        debugPrint("The image is working, sheesh!");
-      },
-      transparency: 0,
-    ));
-    // }
+    openImage() async {
+      BitmapDescriptor bitmapClassroom = await BitmapDescriptor.fromAssetImage(
+          const ImageConfiguration(size: Size(140, 140)),
+          'assets/png/classrooms_level_1.png');
+      debugPrint("DEV: Image obtained: ${bitmapClassroom.toJson()}");
 
-    BitmapDescriptor.fromAssetImage(
-            const ImageConfiguration(size: Size(100, 100)),
-            'assets/png/school.png')
-        .then((onValue) {
-      debugPrint("Image obtained: $onValue");
-      bitmapClassroom = onValue;
-      // drawOverlay();
-    });
+      bool isWorking = classroomsGroundOverlaysSet.add(GroundOverlay(
+        groundOverlayId: GroundOverlayId("TESTEANDO AASJADASA"),
+        bitmapDescriptor: bitmapClassroom,
+        height: 144,
+        width: 142,
+        location: const LatLng(28.70377124721189, -106.13929063844746),
+        onTap: () {
+          debugPrint("DEV: The ground overlay has been tapped");
+        },
+      ));
+      debugPrint("DEV: Classroom Ground Overlay Set is working? $isWorking");
+    }
+
+    openImage();
 
     /// put this function on the initState as long as it called to be first on opening
     // fromAsset() async {
@@ -80,15 +77,15 @@ class MyHomePageState extends State<MyHomePage> {
   }
 
   static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(28.703547206436017, -106.13976759688042),
-    zoom: 14.4746,
+    target: LatLng(28.70377124721189, -106.13929063844746),
+    zoom: 18,
   );
 
   static const CameraPosition _kLake = CameraPosition(
       bearing: 192.8334901395799,
       target: LatLng(37.43296265331129, -122.08832357078792),
       tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
+      zoom: 40);
 
   @override
   Widget build(BuildContext context) {
