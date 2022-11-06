@@ -31,6 +31,7 @@ class MyHomePage extends StatefulWidget {
 
   @override
   State<MyHomePage> createState() => MyHomePageState();
+
 }
 
 class MyHomePageState extends State<MyHomePage> {
@@ -59,8 +60,8 @@ class MyHomePageState extends State<MyHomePage> {
       ));
       debugPrint("DEV: Classroom Ground Overlay Set is working? $isWorking");
     }
-
     openImage();
+
 
     /// put this function on the initState as long as it called to be first on opening
     // fromAsset() async {
@@ -85,17 +86,13 @@ class MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(),
       body: GoogleMap(
         mapType: MapType.hybrid,
         initialCameraPosition: _kGooglePlex,
+        myLocationButtonEnabled: true,
+        myLocationEnabled: true,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
