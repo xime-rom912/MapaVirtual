@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class HomeController extends ChangeNotifier {
   final Map<MarkerId, Marker> _markers = {};
   final Completer<GoogleMapController> _controller = Completer();
+  final TextEditingController _controllr = TextEditingController();
 
   Set<GroundOverlay> classroomsGroundOverlaysSet = <GroundOverlay>{};
 
