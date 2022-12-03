@@ -41,16 +41,16 @@ class MyHomePageState extends State<MyHomePage> {
 
     openImage() async {
       BitmapDescriptor bitmapClassroom = await BitmapDescriptor.fromAssetImage(
-          const ImageConfiguration(size: Size(140, 140)),
+          const ImageConfiguration(size: Size(150, 150)),
           'assets/png/classrooms_level_1.png');
       debugPrint("DEV: Image obtained: ${bitmapClassroom.toJson()}");
 
       bool isWorking = classroomsGroundOverlaysSet.add(GroundOverlay(
         groundOverlayId: GroundOverlayId("TESTEANDO AASJADASA"),
         bitmapDescriptor: bitmapClassroom,
-        height: 144,
-        width: 142,
-        location: const LatLng(28.70377124721189, -106.13929063844746),
+        height: 157,
+        width: 157,
+        location: const LatLng(28.703825788658083, -106.13925163756814),
         onTap: () {
           debugPrint("DEV: The ground overlay has been tapped");
         },
@@ -59,25 +59,10 @@ class MyHomePageState extends State<MyHomePage> {
     }
 
     openImage();
-
-    /// put this function on the initState as long as it called to be first on opening
-    // fromAsset() async {
-    //   /// e.g. location of the asset
-    //   const imageURL = "assets/png/school.png";
-
-    //   /// the function to change the icon
-    //   final myCustomicon = await BitmapDescriptor.fromAssetImage(
-    //       ImageConfiguration.empty, imageURL);
-    //   setState(() {
-    //     bitmapClassroom = myCustomicon;
-    //   });
-    // }
-
-    // fromAsset();
   }
 
   static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(28.70377124721189, -106.13929063844746),
+    target: LatLng(28.703825788658083, -106.13925163756814),
     zoom: 18,
   );
 
@@ -98,7 +83,7 @@ class MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(),
       body: GoogleMap(
-        mapType: MapType.hybrid,
+        mapType: MapType.satellite,
         initialCameraPosition: _kGooglePlex,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
