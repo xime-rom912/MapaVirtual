@@ -1,14 +1,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mapavirtual">
+    package="com.example.mapavirtual"
+    xmlns:tools="http://schemas.android.com/tools">
     <!-- Always include this permission -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <!-- Include only if your app benefits from precise location access. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    !-- "AR Required" apps must declare minSdkVersion ≥ 24 -->
+    <uses-sdk android:minSdkVersion="24" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- Indicates that app requires ARCore ("AR Required"). Ensures app is only
+         visible in the Google Play Store on devices that support ARCore.
+    -->
+    <uses-feature android:name="android.hardware.camera.ar" />
+
    <application
-        android:label="mapavirtual"
-        android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+       android:label="mapavirtual"
+       android:name="${applicationName}"
+       android:icon="@mipmap/ic_launcher">
        <meta-data android:name="com.google.android.geo.API_KEY"
            android:value="AIzaSyBKVePz8SaHa-RGGVf59f8wMPAalC8LvAo"/>
         <activity
@@ -37,5 +49,10 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+       !-- "AR Required" app, requires "Google Play Services for AR" (ARCore)
+       to be installed, as the app does not include any non-AR features. -->
+       <meta-data
+           android:name="com.google.ar.core"
+           android:value="optional" />
     </application>
 </manifest>
