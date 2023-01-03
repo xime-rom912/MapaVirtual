@@ -53,6 +53,6 @@
        to be installed, as the app does not include any non-AR features. -->
        <meta-data
            android:name="com.google.ar.core"
-           android:value="optional" />
+           android:value="optional"/>
     </application>
 </manifest>
