@@ -1,3 +1,4 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
 
 import 'dart:async';
 
@@ -7,13 +8,13 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class HomeController extends ChangeNotifier {
   final Map<MarkerId, Marker> _markers = {};
   final Completer<GoogleMapController> _controller = Completer();
-  final TextEditingController _controllr = TextEditingController();
+  // final TextEditingController _controllr = TextEditingController();
 
   Set<GroundOverlay> classroomsGroundOverlaysSet = <GroundOverlay>{};
 
   Set<Marker> get markers => _markers.values.toSet();
 
-  void onTap(LatLng position){
+  void onTap(LatLng position) {
     final markerId = MarkerId(_markers.length.toString());
     final marker = Marker(
       markerId: markerId,

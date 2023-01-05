@@ -8,18 +8,18 @@ class ArCorePage extends StatefulWidget {
   const ArCorePage({Key? key}) : super(key: key);
 
   @override
-  _ArCoreState createState() => _ArCoreState();
+  State<ArCorePage> createState() => _ArCoreState();
 }
 
 class _ArCoreState extends State<ArCorePage> {
   late ArCoreController arCoreController;
 
-  _onArCoreViewCreated(ArCoreController arcoreController){
+  _onArCoreViewCreated(ArCoreController arcoreController) {
     arCoreController = arcoreController;
     _addSphere(arCoreController);
   }
 
-  _addSphere(ArCoreController _arcoreController){
+  _addSphere(ArCoreController arcoreController) {
     final material = ArCoreMaterial(color: Colors.deepOrange);
     final sphere = ArCoreSphere(materials: [material], radius: 0.2);
     final node = ArCoreNode(
@@ -30,11 +30,11 @@ class _ArCoreState extends State<ArCorePage> {
         -1,
       ),
     );
-    _arcoreController.addArCoreNode(node);
+    arcoreController.addArCoreNode(node);
   }
 
   @override
-  void dispose(){
+  void dispose() {
     arCoreController.dispose();
     super.dispose();
   }
@@ -42,9 +42,7 @@ class _ArCoreState extends State<ArCorePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-
-      ),
+      appBar: AppBar(),
       body: ArCoreView(
         onArCoreViewCreated: _onArCoreViewCreated,
       ),

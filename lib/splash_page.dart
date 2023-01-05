@@ -1,3 +1,5 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
+
 import 'package:flutter/material.dart';
 import 'package:mapavirtual/splash_controller.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -10,23 +12,21 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-
   final _controller = SplashController(Permission.locationWhenInUse);
-  
+
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback(
-            (_) {
-              _controller.checkPermission();
-            });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _controller.checkPermission();
+    });
     _controller.addListener(() {
-      if(_controller.routeName != null){
+      if (_controller.routeName != null) {
         Navigator.pushReplacementNamed(context, _controller.routeName!);
       }
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

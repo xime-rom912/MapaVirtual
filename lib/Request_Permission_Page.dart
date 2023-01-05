@@ -1,3 +1,5 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mapavirtual/Request_Permission_Controller.dart';
@@ -8,7 +10,7 @@ class RequestPermissionPage extends StatefulWidget {
   const RequestPermissionPage({Key? key}) : super(key: key);
 
   @override
-  _RequestPermissionPageState createState() => _RequestPermissionPageState();
+  State<RequestPermissionPage> createState() => _RequestPermissionPageState();
 }
 
 class _RequestPermissionPageState extends State<RequestPermissionPage>

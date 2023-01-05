@@ -1,12 +1,12 @@
-import 'dart:async';
+// ignore_for_file: import_of_legacy_library_into_null_safe
 
+// import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapavirtual/home_contoller.dart';
 import 'package:mapavirtual/pages.dart';
 import 'package:mapavirtual/routes.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/material.dart';
 
 final TextEditingController _cntroller = TextEditingController();
 
@@ -41,14 +41,14 @@ class MyHomePage extends StatelessWidget {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           leading: IconButton(icon: const Icon(Icons.clear), onPressed: () {}),
-            actions: <Widget>[
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, Routes.ARCORE);
-                },
-                child: const Text('Camara'),
-              ),
-            ],
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, Routes.ARCORE);
+              },
+              child: const Text('Camara'),
+            ),
+          ],
           title: Padding(
             padding: const EdgeInsets.only(bottom: 10, right: 10),
             child: TextField(

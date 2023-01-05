@@ -1,4 +1,4 @@
-
+// ignore_for_file: import_of_legacy_library_into_null_safe
 
 import 'dart:async';
 
@@ -11,7 +11,7 @@ class RequestPermissionController {
   final _streamController = StreamController<PermissionStatus>.broadcast();
   Stream<PermissionStatus> get onStatusChanged => _streamController.stream;
 
-  Future<PermissionStatus> check() async{
+  Future<PermissionStatus> check() async {
     final status = await _locationPermission.request();
     return status;
   }
@@ -21,13 +21,13 @@ class RequestPermissionController {
     _notify(status);
   }
 
-  void _notify(PermissionStatus status){
-    if(!_streamController.isClosed && _streamController.hasListener){
+  void _notify(PermissionStatus status) {
+    if (!_streamController.isClosed && _streamController.hasListener) {
       _streamController.sink.add(status);
     }
   }
 
-  void dispose(){
+  void dispose() {
     _streamController.close();
   }
 }
