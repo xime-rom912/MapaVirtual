@@ -74,7 +74,7 @@ flutter:
   assets:
   - assets/png/school.png
   - assets/png/classrooms_level_1.png
-  - assets/png/classrooms_level_1.svg
+  - assets/png/laboratories_level_1.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -24,22 +24,30 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onMapCreated(GoogleMapController controller) {
+  Future<void> onMapCreated(GoogleMapController controller) async {
+    debugPrint("THE MAP HAS BEEN CREATED AAAAAAAAAAAAAAAAAAAAAAAAAA");
+    // await openClassroomsImage();
+    await loadImageOnMap(
+        classroomsImageFilename, classroomsPosition, 0, classroomsSize);
+    await loadImageOnMap(
+        edificioCImageFilename, edificioCPosition, 1, edificioCSize);
     _controller.complete(controller);
+    debugPrint("GroundOverlaySet $classroomsGroundOverlaysSet");
+    notifyListeners();
   }
 
-  openImage() async {
-    BitmapDescriptor bitmapClassroom = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(size: Size(140, 140)),
-        'assets/png/classrooms_level_1.png');
-    debugPrint("DEV: Image obtained: ${bitmapClassroom.toJson()}");
+  loadImageOnMap(
+      String imageFilename, LatLng coords, int id, Size imageSize) async {
+    BitmapDescriptor bitmap = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(size: imageSize), imageFilename);
+    debugPrint("DEV: Image obtained: ${bitmap.toJson()}");
 
     bool isWorking = classroomsGroundOverlaysSet.add(GroundOverlay(
-      groundOverlayId: GroundOverlayId("TESTEANDO AASJADASA"),
-      bitmapDescriptor: bitmapClassroom,
-      height: 144,
-      width: 142,
-      location: const LatLng(28.70377124721189, -106.13929063844746),
+      groundOverlayId: GroundOverlayId("$imageFilename $id"),
+      bitmapDescriptor: bitmap,
+      height: imageSize.height,
+      width: imageSize.width,
+      location: coords,
       onTap: () {
         debugPrint("DEV: The ground overlay has been tapped");
       },
@@ -47,8 +55,19 @@ class HomeController extends ChangeNotifier {
     debugPrint("DEV: Classroom Ground Overlay Set is working? $isWorking");
   }
 
+  final classroomsImageFilename = "assets/png/classrooms_level_1.png";
+  final classroomsPosition =
+      const LatLng(28.70377124721189, -106.13929063844746);
+  final classroomsSize = const Size(140, 140);
+
+  final edificioCImageFilename = "assets/png/laboratories_level_1.png";
+  final edificioCPosition =
+      const LatLng(28.703206295599326, -106.14058572967595);
+  final edificioCSize = const Size(144, 144);
+
   final initialCameraPosition = const CameraPosition(
-    target: LatLng(28.70377124721189, -106.13929063844746),
+    target: LatLng(28.703206295599326, -106.14058572967595),
+    // target: LatLng(28.70377124721189, -106.13929063844746),
     zoom: 18,
   );
 }
