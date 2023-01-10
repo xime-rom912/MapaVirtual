@@ -60,10 +60,10 @@ class HomeController extends ChangeNotifier {
       const LatLng(28.70377124721189, -106.13929063844746);
   final classroomsSize = const Size(140, 140);
 
-  final edificioCImageFilename = "assets/png/laboratories_level_1.png";
+  final edificioCImageFilename = "assets/png/laboratories_level_0_01.png";
   final edificioCPosition =
-      const LatLng(28.703206295599326, -106.14058572967595);
-  final edificioCSize = const Size(144, 144);
+      const LatLng(28.703168888427548, -106.14043582907642);
+  final edificioCSize = const Size(110, 110);
 
   final initialCameraPosition = const CameraPosition(
     target: LatLng(28.703206295599326, -106.14058572967595),
