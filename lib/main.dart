@@ -79,6 +79,7 @@ class MyHomePage extends StatelessWidget {
             onMapCreated: controller.onMapCreated,
             groundOverlays: controller.classroomsGroundOverlaysSet,
             onTap: controller.onTap,
+            polylines: controller.currentRoute,
           ),
         ), // This trailing comma makes auto-formatting nicer for build methods.
       ),
