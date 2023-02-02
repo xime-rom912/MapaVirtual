@@ -5,6 +5,7 @@ import 'package:mapavirtual/place.dart';
 
 class SearchPlacesDelegate extends SearchDelegate<Place> {
   final List<Place> places;
+  final HomeController _controller = HomeController();
   List<Place> _filter=[];
 
   SearchPlacesDelegate(this.places);
@@ -34,7 +35,8 @@ class SearchPlacesDelegate extends SearchDelegate<Place> {
     if(query != null && places.contains(query.toLowerCase())){
       return ListTile(
         title: Text(query),
-        onTap: (){},
+        onTap: (){
+        },
       );
     }else{
       return ListTile(
@@ -58,8 +60,7 @@ class SearchPlacesDelegate extends SearchDelegate<Place> {
               Icons.arrow_forward_ios,
             ),
             onTap: (){
-              final HomeController _controller = HomeController();
-              _controller.onTap(MarkerId(_filter[index].name),_filter[index].position);
+              _controller.onTap(_filter[index].position);
               close(context, Place(_filter[index].name, _filter[index].position));
             },
           );

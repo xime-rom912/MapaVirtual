@@ -1,38 +1,51 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 import 'package:google_maps_webservice/directions.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mapavirtual/place.dart';
-import 'package:provider/provider.dart';
 
 class HomeController extends ChangeNotifier {
-  final Map<MarkerId, Marker> _markers = {};
   final Completer<GoogleMapController> _controller = Completer();
-  final LatLng fromPoint = const LatLng(28.704100198007694, -106.138842846805);
-  final LatLng toPoint = const LatLng(28.7028573, -106.1389616);
-  // final TextEditingController _controllr = TextEditingController();
+  final LatLng fromPoint = const LatLng(28.704521, -106.138989);
+  final LatLng toPoint = const LatLng(28.703741, -106.140353);
+  late GoogleMapController _controllerMap ;
+
+  final Map<MarkerId, Marker> _markers = {};
 
   Set<GroundOverlay> classroomsGroundOverlaysSet = <GroundOverlay>{};
 
   Set<Marker> get markers => _markers.values.toSet();
 
-  void onTap(MarkerId markerId, LatLng position) {
-    //final id = _markers.length.toString();
-    //final markerId = MarkerId(id);
+  void rutaView(){
+    print("hola");
+    LatLng fromPoint = const LatLng(28.7037201, -106.1398726);
+    LatLng toPoint = const LatLng(28.7039989, -106.1386501);
+
+    findDirections(fromPoint, toPoint);
+
+    onTap(fromPoint);
+    onTap(toPoint);
+
+    notifyListeners();
+  }
+
+  void onTap(LatLng position) {
+    final id = _markers.length.toString();
+    final markerId = MarkerId(id);
     final marker = Marker(
       markerId: markerId,
       position: position,
-      draggable: true,
-      anchor: const Offset(0.5,1),
+      draggable: false,
+      anchor: const Offset(0.5,1.5),
+      visible: true,
     );
     _markers[markerId] = marker;
     notifyListeners();
   }
-
 
   Future<void> onMapCreated(GoogleMapController controller) async {
     debugPrint("THE MAP HAS BEEN CREATED AAAAAAAAAAAAAAAAAAAAAAAAAA");
@@ -63,9 +76,11 @@ class HomeController extends ChangeNotifier {
       },
     ));
     debugPrint("DEV: Classroom Ground Overlay Set is working? $isWorking");
+
     findDirections(fromPoint, toPoint);
-    onTap(MarkerId('1'),fromPoint);
-    onTap(MarkerId('2'),toPoint);
+
+    onTap(fromPoint);
+    onTap(toPoint);
   }
 
   final classroomsImageFilename = "assets/png/classrooms_level_1.png";
@@ -85,7 +100,7 @@ class HomeController extends ChangeNotifier {
   );
 
   GoogleMapsDirections directionsApi = GoogleMapsDirections(
-      apiKey: "AIzaSyBKVePz8SaHa-RGGVf59f8wMPAalC8LvAo"
+      apiKey: "AIzaSyBwMSII7CzebpO3ozVZjp_5Gz02iaySkyk"
   );
 
   Set<maps.Polyline> _route = {};
@@ -123,6 +138,7 @@ class HomeController extends ChangeNotifier {
       );
       newRoute.add(line);
       _route = newRoute;
+      notifyListeners();
     }
   }
 }

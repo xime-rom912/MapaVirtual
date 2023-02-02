@@ -1,6 +1,8 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 
 // import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapavirtual/home_contoller.dart';
@@ -11,6 +13,7 @@ import 'package:mapavirtual/search_delegate_aulas.dart';
 import 'package:provider/provider.dart';
 
 final TextEditingController _cntroller = TextEditingController();
+final HomeController _conHome = HomeController();
 
 void main() {
   runApp(const MyApp());
@@ -31,6 +34,8 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+late GoogleMapController _controllerMap;
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -84,8 +89,15 @@ class MyHomePage extends StatelessWidget {
             onMapCreated: controller.onMapCreated,
             groundOverlays: controller.classroomsGroundOverlaysSet,
             polylines: controller.currentRoute,
+            onTap: controller.onTap,
           ),
-        ), // This trailing comma makes auto-formatting nicer for build methods.
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: ()=>{
+            _conHome.rutaView
+          },
+          child: const Icon(Icons.alt_route_rounded),
+        ),// This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }
