@@ -55,49 +55,49 @@ class MyHomePage extends StatelessWidget {
     ];
     return ChangeNotifierProvider<HomeController>(
       create: (_) => HomeController(),
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          actions: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, Routes.ARCORE);
-              },
-              child: const Text('Camara'),
-            ),
-          ],
-          title: Padding(
-            padding: const EdgeInsets.only(bottom: 10, right: 10),
-            child: ListTile(
-              onTap: (){
-                showSearch(
-                  context: context,
-                  delegate: SearchPlacesDelegate(places),
-                );
-              },
-              title: const Text('Buscar', style: TextStyle(color: Colors.white)),
+      child: Consumer<HomeController>(
+        builder: (_, controller, __) => Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            actions: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, Routes.ARCORE);
+                },
+                child: const Text('Camara'),
+              ),
+            ],
+            title: Padding(
+              padding: const EdgeInsets.only(bottom: 10, right: 10),
+              child: ListTile(
+                onTap: (){
+                  showSearch(
+                    context: context,
+                    delegate: SearchPlacesDelegate(places),
+                  );
+                },
+                title: const Text('Buscar', style: TextStyle(color: Colors.white)),
+              ),
             ),
           ),
+          body:  GoogleMap(
+              markers: controller.markers,
+              mapType: MapType.normal,
+              initialCameraPosition: controller.initialCameraPosition,
+              myLocationButtonEnabled: true,
+              myLocationEnabled: true,
+              onMapCreated: controller.onMapCreated,
+              groundOverlays: controller.classroomsGroundOverlaysSet,
+              polylines: controller.currentRoute,
+              onTap: controller.onTap,
+            ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: ()=>{
+              controller.rutaView()
+            },
+            child: const Icon(Icons.alt_route_rounded),
+          ),// This trailing comma makes auto-formatting nicer for build methods.
         ),
-        body: Consumer<HomeController>(
-          builder: (_, controller, __) => GoogleMap(
-            markers: controller.markers,
-            mapType: MapType.normal,
-            initialCameraPosition: controller.initialCameraPosition,
-            myLocationButtonEnabled: true,
-            myLocationEnabled: true,
-            onMapCreated: controller.onMapCreated,
-            groundOverlays: controller.classroomsGroundOverlaysSet,
-            polylines: controller.currentRoute,
-            onTap: controller.onTap,
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: ()=>{
-            _conHome.rutaView
-          },
-          child: const Icon(Icons.alt_route_rounded),
-        ),// This trailing comma makes auto-formatting nicer for build methods.
       ),
     );
   }

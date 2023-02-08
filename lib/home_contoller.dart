@@ -21,7 +21,6 @@ class HomeController extends ChangeNotifier {
   Set<Marker> get markers => _markers.values.toSet();
 
   void rutaView(){
-    print("hola");
     LatLng fromPoint = const LatLng(28.7037201, -106.1398726);
     LatLng toPoint = const LatLng(28.7039989, -106.1386501);
 
@@ -76,11 +75,6 @@ class HomeController extends ChangeNotifier {
       },
     ));
     debugPrint("DEV: Classroom Ground Overlay Set is working? $isWorking");
-
-    findDirections(fromPoint, toPoint);
-
-    onTap(fromPoint);
-    onTap(toPoint);
   }
 
   final classroomsImageFilename = "assets/png/classrooms_level_1.png";
