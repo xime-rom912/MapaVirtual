@@ -40,6 +40,8 @@ late GoogleMapController _controllerMap;
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
+  get floatingActionButton => null;
+
   @override
   Widget build(BuildContext context) {
     final List<Place> places = [
@@ -80,7 +82,7 @@ class MyHomePage extends StatelessWidget {
               ),
             ),
           ),
-          body:  GoogleMap(
+          body: GoogleMap(
               markers: controller.markers,
               mapType: MapType.normal,
               initialCameraPosition: controller.initialCameraPosition,
@@ -91,12 +93,15 @@ class MyHomePage extends StatelessWidget {
               polylines: controller.currentRoute,
               onTap: controller.onTap,
             ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
           floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.deepPurple,
+
             onPressed: ()=>{
               controller.rutaView()
             },
             child: const Icon(Icons.alt_route_rounded),
-          ),// This trailing comma makes auto-formatting nicer for build methods.
+          ), // This trailing comma makes auto-formatting nicer for build methods.
         ),
       ),
     );
