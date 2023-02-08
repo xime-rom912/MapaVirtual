@@ -26,11 +26,6 @@ class HomeController extends ChangeNotifier {
     LatLng fromPoint = markers.first.position;
     LatLng toPoint = markers.last.position;
 
-    print("===========================================================================");
-    print(fromPoint);
-    print("===========================================================================");
-    print(toPoint);
-
     if(fromPoint != null && toPoint != null) {
       findDirections(fromPoint!, toPoint!);
 
@@ -43,9 +38,6 @@ class HomeController extends ChangeNotifier {
 
   void onTap(LatLng position) {
     final id = _markers.length.toString();
-    print("------------------------------------------------------------------------------");
-    print(id);
-    print("------------------------------------------------------------------------------");
     final markerId = MarkerId(id);
     final marker = Marker(
       markerId: markerId,
