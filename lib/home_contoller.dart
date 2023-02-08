@@ -21,19 +21,31 @@ class HomeController extends ChangeNotifier {
   Set<Marker> get markers => _markers.values.toSet();
 
   void rutaView(){
-    LatLng fromPoint = const LatLng(28.7037201, -106.1398726);
-    LatLng toPoint = const LatLng(28.7039989, -106.1386501);
+    //LatLng fromPoint = const LatLng(28.7037201, -106.1398726);
+    //LatLng toPoint = const LatLng(28.7039989, -106.1386501);
+    LatLng fromPoint = markers.first.position;
+    LatLng toPoint = markers.last.position;
 
-    findDirections(fromPoint, toPoint);
+    print("===========================================================================");
+    print(fromPoint);
+    print("===========================================================================");
+    print(toPoint);
 
-    onTap(fromPoint);
-    onTap(toPoint);
+    if(fromPoint != null && toPoint != null) {
+      findDirections(fromPoint!, toPoint!);
 
-    notifyListeners();
+      onTap(fromPoint);
+      onTap(toPoint);
+
+      notifyListeners();
+    }
   }
 
   void onTap(LatLng position) {
     final id = _markers.length.toString();
+    print("------------------------------------------------------------------------------");
+    print(id);
+    print("------------------------------------------------------------------------------");
     final markerId = MarkerId(id);
     final marker = Marker(
       markerId: markerId,

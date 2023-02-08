@@ -40,6 +40,8 @@ late GoogleMapController _controllerMap;
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
+  get floatingActionButton => null;
+
   @override
   Widget build(BuildContext context) {
     final List<Place> places = [
