@@ -28,10 +28,6 @@ class HomeController extends ChangeNotifier {
 
     if(fromPoint != null && toPoint != null) {
       findDirections(fromPoint!, toPoint!);
-
-      onTap(fromPoint);
-      onTap(toPoint);
-
       notifyListeners();
     }
   }
@@ -105,7 +101,7 @@ class HomeController extends ChangeNotifier {
 
   Set<maps.Polyline> get currentRoute => _route;
 
-  findDirections(maps.LatLng from, maps.LatLng to) async {
+  findDirections(LatLng from, LatLng to) async {
     var origin = Location(lat: from.latitude, lng: from.longitude);
     var destination = Location(lat: to.latitude, lng: to.longitude);
 

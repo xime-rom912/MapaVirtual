@@ -119,11 +119,14 @@ class MyHomePage extends StatelessWidget {
               title: Padding(
                 padding: const EdgeInsets.only(bottom: 10, right: 10),
                 child: ListTile(
-                  onTap: () {
-                    showSearch(
+                  onTap: () async {
+                    final selectedPlace = await showSearch(
                       context: context,
                       delegate: SearchPlacesDelegate(places),
                     );
+                    if(selectedPlace !=null) {
+                      controller.onTap(selectedPlace.position);
+                    }
                   },
                   title: const Text('Buscar',
                       style: TextStyle(color: Colors.white)),
@@ -153,6 +156,7 @@ class MyHomePage extends StatelessWidget {
                       onPressed: () => {
                         // TODO: Show the list of places and their rooms
                       },
+                      backgroundColor: Colors.deepPurple,
                       child: const Icon(Icons.layers),
                     ),
                   ),
@@ -160,6 +164,7 @@ class MyHomePage extends StatelessWidget {
                     padding: const EdgeInsets.all(5.0),
                     child: FloatingActionButton(
                       onPressed: () => {controller.rutaView()},
+                      backgroundColor: Colors.deepPurple,
                       child: const Icon(Icons.alt_route_rounded),
                     ),
                   ),

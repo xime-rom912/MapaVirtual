@@ -5,7 +5,6 @@ import 'package:mapavirtual/place.dart';
 
 class SearchPlacesDelegate extends SearchDelegate<Place> {
   final List<Place> places;
-  final HomeController _controller = HomeController();
   List<Place> _filter=[];
 
   SearchPlacesDelegate(this.places);
@@ -60,7 +59,6 @@ class SearchPlacesDelegate extends SearchDelegate<Place> {
               Icons.arrow_forward_ios,
             ),
             onTap: (){
-              _controller.onTap(_filter[index].position);
               close(context, Place(_filter[index].name, _filter[index].position));
             },
           );
