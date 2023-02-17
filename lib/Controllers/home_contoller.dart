@@ -1,26 +1,60 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 
 import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mapavirtual/directions_repository.dart';
 
 class HomeController extends ChangeNotifier {
-  final Map<MarkerId, Marker> _markers = {};
   final Completer<GoogleMapController> _controller = Completer();
-  // final TextEditingController _controllr = TextEditingController();
+  final LatLng fromPoint = const LatLng(28.704521, -106.138989);
+  final LatLng toPoint = const LatLng(28.703741, -106.140353);
+  late GoogleMapController _controllerMap ;
+  late bool flag = true;
+
+  final Map<MarkerId, Marker> _markers = {};
 
   Set<GroundOverlay> classroomsGroundOverlaysSet = <GroundOverlay>{};
 
   Set<Marker> get markers => _markers.values.toSet();
 
-  void onTap(LatLng position) {
-    final markerId = MarkerId(_markers.length.toString());
+  void rutaView(){
+    //LatLng fromPoint = const LatLng(28.7037201, -106.1398726);
+    //LatLng toPoint = const LatLng(28.7039989, -106.1386501);
+    LatLng fromPoint = markers.first.position;
+    LatLng toPoint = markers.last.position;
+
+    if(fromPoint != null && toPoint != null) {
+      findDirections(fromPoint!, toPoint!);
+      notifyListeners();
+    }
+  }
+
+  void marker(String id, LatLng position){
+    final markerId = MarkerId(id);
     final marker = Marker(
       markerId: markerId,
       position: position,
+      draggable: false,
+      anchor: const Offset(0.5, 1.5),
+      visible: true,
     );
     _markers[markerId] = marker;
+  }
+
+  void onTap(LatLng position) {
+    if(flag) {
+      const id = '0';
+      marker(id,position);
+      flag = false;
+    }else{
+      const id = '1';
+      marker(id,position);
+      flag = true;
+    }
     notifyListeners();
   }
 
@@ -70,4 +104,30 @@ class HomeController extends ChangeNotifier {
     // target: LatLng(28.70377124721189, -106.13929063844746),
     zoom: 18,
   );
+
+  Set<maps.Polyline> _route = {};
+
+  Set<maps.Polyline> get currentRoute => _route;
+
+  findDirections(maps.LatLng from, maps.LatLng to) async {
+
+    final directions = await DirectionsRepository()
+        .getDirections(origin: from, destination: to);
+
+    Set<maps.Polyline> newRoute = {};
+
+    if(directions != null){
+      var line = maps.Polyline(
+        points: directions.polylinePoints
+            .map((e) => LatLng(e.latitude, e.longitude))
+            .toList(),
+        polylineId: maps.PolylineId("overview_polyline"),
+        color:Colors.amber,
+        width: 4,
+      );
+      newRoute.add(line);
+      _route = newRoute;
+      notifyListeners();
+    }
+  }
 }

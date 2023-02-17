@@ -12,6 +12,8 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <!-- Indicates that app requires ARCore ("AR Required"). Ensures app is only
          visible in the Google Play Store on devices that support ARCore.
     -->
@@ -22,7 +24,7 @@
        android:name="${applicationName}"
        android:icon="@mipmap/ic_launcher">
        <meta-data android:name="com.google.android.geo.API_KEY"
-           android:value="AIzaSyBKVePz8SaHa-RGGVf59f8wMPAalC8LvAo"/>
+           android:value="AIzaSyBwMSII7CzebpO3ozVZjp_5Gz02iaySkyk"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
