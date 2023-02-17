@@ -12,7 +12,7 @@ class HomeController extends ChangeNotifier {
   final Completer<GoogleMapController> _controller = Completer();
   final LatLng fromPoint = const LatLng(28.704521, -106.138989);
   final LatLng toPoint = const LatLng(28.703741, -106.140353);
-  late GoogleMapController _controllerMap ;
+  late GoogleMapController _controllerMap;
   late bool flag = true;
 
   final Map<MarkerId, Marker> _markers = {};
@@ -21,19 +21,19 @@ class HomeController extends ChangeNotifier {
 
   Set<Marker> get markers => _markers.values.toSet();
 
-  void rutaView(){
+  void rutaView() {
     //LatLng fromPoint = const LatLng(28.7037201, -106.1398726);
     //LatLng toPoint = const LatLng(28.7039989, -106.1386501);
     LatLng fromPoint = markers.first.position;
     LatLng toPoint = markers.last.position;
 
-    if(fromPoint != null && toPoint != null) {
+    if (fromPoint != null && toPoint != null) {
       findDirections(fromPoint!, toPoint!);
       notifyListeners();
     }
   }
 
-  void marker(String id, LatLng position){
+  void marker(String id, LatLng position) {
     final markerId = MarkerId(id);
     final marker = Marker(
       markerId: markerId,
@@ -46,13 +46,13 @@ class HomeController extends ChangeNotifier {
   }
 
   void onTap(LatLng position) {
-    if(flag) {
+    if (flag) {
       const id = '0';
-      marker(id,position);
+      marker(id, position);
       flag = false;
-    }else{
+    } else {
       const id = '1';
-      marker(id,position);
+      marker(id, position);
       flag = true;
     }
     notifyListeners();
@@ -94,7 +94,7 @@ class HomeController extends ChangeNotifier {
       const LatLng(28.70377124721189, -106.13929063844746);
   final classroomsSize = const Size(140, 140);
 
-  final edificioCImageFilename = "assets/png/laboratories_level_0_01.png";
+  final edificioCImageFilename = "assets/png/laboratories_level_0_03.png";
   final edificioCPosition =
       const LatLng(28.703168888427548, -106.14043582907642);
   final edificioCSize = const Size(110, 110);
@@ -110,19 +110,18 @@ class HomeController extends ChangeNotifier {
   Set<maps.Polyline> get currentRoute => _route;
 
   findDirections(maps.LatLng from, maps.LatLng to) async {
-
     final directions = await DirectionsRepository()
         .getDirections(origin: from, destination: to);
 
     Set<maps.Polyline> newRoute = {};
 
-    if(directions != null){
+    if (directions != null) {
       var line = maps.Polyline(
         points: directions.polylinePoints
             .map((e) => LatLng(e.latitude, e.longitude))
             .toList(),
         polylineId: maps.PolylineId("overview_polyline"),
-        color:Colors.amber,
+        color: Colors.amber,
         width: 4,
       );
       newRoute.add(line);
