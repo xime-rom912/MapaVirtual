@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mapavirtual/home_contoller.dart';
+import 'package:mapavirtual/Controllers/home_contoller.dart';
 import 'package:mapavirtual/place.dart';
 
 class SearchPlacesDelegate extends SearchDelegate<Place> {

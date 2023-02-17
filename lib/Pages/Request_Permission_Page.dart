@@ -2,7 +2,7 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:mapavirtual/Request_Permission_Controller.dart';
+import 'package:mapavirtual/Controllers/Request_Permission_Controller.dart';
 import 'package:mapavirtual/routes.dart';
 import 'package:permission_handler/permission_handler.dart';
 

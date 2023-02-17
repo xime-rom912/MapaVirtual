@@ -1,7 +1,7 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 
 import 'package:flutter/material.dart';
-import 'package:mapavirtual/splash_controller.dart';
+import 'package:mapavirtual/Controllers/splash_controller.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class SplashPage extends StatefulWidget {
