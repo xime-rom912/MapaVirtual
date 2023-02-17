@@ -45,14 +45,16 @@ class HomeController extends ChangeNotifier {
     _markers[markerId] = marker;
   }
 
-  void onTap(LatLng position) {
+  void onTap(LatLng position, int building, int level) {
     if(flag) {
       const id = '0';
       marker(id,position);
+      //cambio(building,level)
       flag = false;
     }else{
       const id = '1';
       marker(id,position);
+      //cambio(building,level)
       flag = true;
     }
     notifyListeners();
