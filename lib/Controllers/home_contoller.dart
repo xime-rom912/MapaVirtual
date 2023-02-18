@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
@@ -21,13 +22,21 @@ class HomeController extends ChangeNotifier {
 
   Set<Marker> get markers => _markers.values.toSet();
 
-  void rutaView(){
-    //LatLng fromPoint = const LatLng(28.7037201, -106.1398726);
-    //LatLng toPoint = const LatLng(28.7039989, -106.1386501);
+  Set<maps.Polyline> _route = {};
+
+  Set<maps.Polyline> get currentRoute => _route;
+
+  Future<void> rutaView() async {
+    Position position =
+      await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    LatLng myLocation = LatLng(position.latitude,position.longitude);
     LatLng fromPoint = markers.first.position;
     LatLng toPoint = markers.last.position;
 
-    if(fromPoint != null && toPoint != null) {
+
+    if(myLocation != null){
+      findDirections(myLocation! as maps.LatLng, fromPoint!);
+    }else if (fromPoint != null && toPoint != null) {
       findDirections(fromPoint!, toPoint!);
       notifyListeners();
     }
@@ -46,6 +55,7 @@ class HomeController extends ChangeNotifier {
   }
 
   void onTap(LatLng position/*, int building, int level*/) {
+    currentRoute.clear();
     if(flag) {
       const id = '0';
       marker(id,position);
@@ -107,10 +117,6 @@ class HomeController extends ChangeNotifier {
     zoom: 18,
   );
 
-  Set<maps.Polyline> _route = {};
-
-  Set<maps.Polyline> get currentRoute => _route;
-
   findDirections(maps.LatLng from, maps.LatLng to) async {
 
     final directions = await DirectionsRepository()
@@ -129,7 +135,7 @@ class HomeController extends ChangeNotifier {
       );
       newRoute.add(line);
       _route = newRoute;
-      notifyListeners();
     }
+    notifyListeners();
   }
 }
