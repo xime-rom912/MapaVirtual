@@ -59,7 +59,7 @@ class SearchPlacesDelegate extends SearchDelegate<Place> {
               Icons.arrow_forward_ios,
             ),
             onTap: (){
-              close(context, Place(_filter[index].name, _filter[index].position));
+              close(context, Place(_filter[index].name, _filter[index].position,_filter[index].building,_filter[index].flor));
             },
           );
         },
