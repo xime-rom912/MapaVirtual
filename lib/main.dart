@@ -1,8 +1,6 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 
 // import 'dart:async';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapavirtual/Controllers/home_contoller.dart';
@@ -39,11 +37,12 @@ late GoogleMapController _controllerMap;
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
-
   get floatingActionButton => null;
+
 
   @override
   Widget build(BuildContext context) {
+    double _progress =0.0;
     final List<Place> places = [
       const Place('16', LatLng(28.704100198007694, -106.138842846805),3,0),
       const Place('17', LatLng(28.70409552666388, -106.13894403747099),3,0),
@@ -143,6 +142,7 @@ class MyHomePage extends StatelessWidget {
               groundOverlays: controller.classroomsGroundOverlaysSet,
               polylines: controller.currentRoute,
               onTap: controller.onTap,
+              zoomControlsEnabled: false,
             ),
             floatingActionButton: Padding(
               padding:
@@ -150,6 +150,13 @@ class MyHomePage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  const Padding(
+                    padding:
+                    EdgeInsets.all(30),
+                    child:  CircularProgressIndicator(
+                      color: Colors.purple,
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: FloatingActionButton(
@@ -163,7 +170,35 @@ class MyHomePage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: FloatingActionButton(
-                      onPressed: () => {controller.rutaView()},
+                      onPressed: () => {
+                        showDialog(
+                          context: context,
+                          builder: (buildcontext) {
+                            return AlertDialog(
+                              title: Text("Punto de origen"),
+                              content: Text("Quiere la ruta desde su localizacion o desden punto de origen?"),
+                              actions: <Widget>[
+                                  ElevatedButton(
+                                    child:
+                                    const Text("Mi localizacion", style: TextStyle(color: Colors.white),),
+                                    onPressed: () async {
+                                      await controller.rutaView(true);
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ElevatedButton(
+                                  child:
+                                  const Text("Punto marcado", style: TextStyle(color: Colors.white),),
+                                  onPressed: () async{
+                                    await controller.rutaView(false);
+                                    Navigator.of(context).pop();
+                                  },
+                                )
+                              ],
+                            );
+                          }
+                        ),
+                      },
                       backgroundColor: Colors.deepPurple,
                       child: const Icon(Icons.alt_route_rounded),
                     ),
@@ -172,7 +207,7 @@ class MyHomePage extends StatelessWidget {
               ),
             ),
             floatingActionButtonLocation:
-                FloatingActionButtonLocation.startDocked
+                FloatingActionButtonLocation.endDocked
             // This trailing comma makes auto-formatting nicer for build methods.
             ),
       ),

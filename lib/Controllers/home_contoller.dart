@@ -4,7 +4,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapavirtual/directions_repository.dart';
@@ -26,7 +25,7 @@ class HomeController extends ChangeNotifier {
 
   Set<maps.Polyline> get currentRoute => _route;
 
-  Future<void> rutaView() async {
+  Future<void> rutaView(bool flag) async {
     Position position =
       await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     LatLng myLocation = LatLng(position.latitude,position.longitude);
@@ -34,7 +33,7 @@ class HomeController extends ChangeNotifier {
     LatLng toPoint = markers.last.position;
 
 
-    if(myLocation != null){
+    if(myLocation != null && flag){
       findDirections(myLocation! as maps.LatLng, fromPoint!);
     }else if (fromPoint != null && toPoint != null) {
       findDirections(fromPoint!, toPoint!);
