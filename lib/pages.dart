@@ -9,7 +9,7 @@ Map<String, Widget Function(BuildContext)> appRoutes() {
   return {
     Routes.SPLASH: (_) => const SplashPage(),
     Routes.PERMISSIONS: (_) => const RequestPermissionPage(),
-    Routes.HOME: (_) => const MyHomePage(),
+    Routes.HOME: (_) =>  MyHomePage(),
     Routes.ARCORE: (_) => const ArCorePage(),
   };
 }

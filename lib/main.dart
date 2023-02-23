@@ -10,7 +10,6 @@ import 'package:mapavirtual/routes.dart';
 import 'package:mapavirtual/search_delegate_aulas.dart';
 import 'package:provider/provider.dart';
 
-final TextEditingController _cntroller = TextEditingController();
 final HomeController _conHome = HomeController();
 
 void main() {
@@ -32,17 +31,22 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-late GoogleMapController _controllerMap;
-
+//ignore: must_be_immutable
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+  MyHomePage({super.key});
   get floatingActionButton => null;
 
+  bool visible = false;
 
-  @override
+  loadProgress (){
+    if(visible == true){
+      visible = false;
+    }
+    else {
+      visible = true;
+    }
+  }
   Widget build(BuildContext context) {
-    double _progress =0.0;
     final List<Place> places = [
       const Place('16', LatLng(28.704100198007694, -106.138842846805),3,0),
       const Place('17', LatLng(28.70409552666388, -106.13894403747099),3,0),
@@ -150,13 +154,18 @@ class MyHomePage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  const Padding(
-                    padding:
-                    EdgeInsets.all(30),
-                    child:  CircularProgressIndicator(
-                      color: Colors.purple,
-                    ),
-                  ),
+                   Visibility(
+                        maintainSize: true,
+                        maintainAnimation: true,
+                        maintainState: true,
+                        visible: visible,
+                        child: Container(
+                            margin: const EdgeInsets.only(top: 50, bottom: 30),
+                            child: const CircularProgressIndicator(
+                              color: Colors.purple,
+                            ),
+                        )
+                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: FloatingActionButton(
@@ -175,23 +184,25 @@ class MyHomePage extends StatelessWidget {
                           context: context,
                           builder: (buildcontext) {
                             return AlertDialog(
-                              title: Text("Punto de origen"),
-                              content: Text("Quiere la ruta desde su localizacion o desden punto de origen?"),
+                              title: const Text("Punto de origen"),
+                              content: const Text("Quiere la ruta desde su localizacion o desde punto de marcado?"),
                               actions: <Widget>[
                                   ElevatedButton(
                                     child:
                                     const Text("Mi localizacion", style: TextStyle(color: Colors.white),),
-                                    onPressed: () async {
-                                      await controller.rutaView(true);
+                                    onPressed: (){
+                                      controller.rutaView(true);
                                       Navigator.of(context).pop();
+                                      loadProgress();
                                     },
                                   ),
                                 ElevatedButton(
                                   child:
                                   const Text("Punto marcado", style: TextStyle(color: Colors.white),),
-                                  onPressed: () async{
-                                    await controller.rutaView(false);
+                                  onPressed: () {
+                                    controller.rutaView(false);
                                     Navigator.of(context).pop();
+                                    loadProgress();
                                   },
                                 )
                               ],
@@ -214,3 +225,4 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
+
