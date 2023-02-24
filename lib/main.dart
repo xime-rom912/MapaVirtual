@@ -101,6 +101,7 @@ class MyHomePage extends StatelessWidget {
       child: Consumer<HomeController>(
         builder: (_, controller, __) => Scaffold(
             appBar: AppBar(
+              backgroundColor: Colors.deepPurple,
               automaticallyImplyLeading: false,
               actions: <Widget>[
                 ElevatedButton(
@@ -123,7 +124,9 @@ class MyHomePage extends StatelessWidget {
                     }
                   },
                   title: const Text('Buscar',
-                      style: TextStyle(color: Colors.white)),
+                      style:
+                      TextStyle(color: Colors.white, fontSize: 24),
+                  ),
                 ),
               ),
             ),
