@@ -154,7 +154,7 @@ class MyHomePage extends StatelessWidget {
                       maintainSize: true,
                       maintainAnimation: true,
                       maintainState: true,
-                      visible: true,
+                      visible: controller.visible,
                       child: Container(
                         margin: const EdgeInsets.all(5),
                         child: const CircularProgressIndicator(
