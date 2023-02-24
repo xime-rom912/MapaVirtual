@@ -144,77 +144,88 @@ class MyHomePage extends StatelessWidget {
             ),
             floatingActionButton: Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0),
+              const EdgeInsets.only(left:0,right: 0,top:0,bottom: 0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                   Visibility(
-                        maintainSize: true,
-                        maintainAnimation: true,
-                        maintainState: true,
-                        visible: controller.visible,
-                        child: Container(
-                            margin: const EdgeInsets.only(top: 50, bottom: 30),
-                            child: const CircularProgressIndicator(
-                              color: Colors.purple,
-                            ),
-                        )
-                   ),
+                children:[
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: FloatingActionButton(
-                      onPressed: () => {
-                        // TODO: Show the list of places and their rooms
-                      },
-                      backgroundColor: Colors.deepPurple,
-                      child: const Icon(Icons.layers),
-                    ),
+                    padding: const EdgeInsets.only(top: 230, bottom:230 ,right: 120,),
+                    child: Visibility(
+                      maintainSize: true,
+                      maintainAnimation: true,
+                      maintainState: true,
+                      visible: true,
+                      child: Container(
+                        margin: const EdgeInsets.all(5),
+                        child: const CircularProgressIndicator(
+                          color: Colors.amber,
+                        ),
+                      ),
+                    ), // This trailing comma makes auto-formatting nicer for build methods.
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: FloatingActionButton(
-                      onPressed: () => {
-                        showDialog(
-                          context: context,
-                          builder: (buildcontext) {
-                            return AlertDialog(
-                              title: const Text("Punto de origen"),
-                              content: const Text("Quiere la ruta desde su localizacion o desde punto de marcado?"),
-                              actions: <Widget>[
-                                  ElevatedButton(
-                                    child:
-                                    const Text("Mi localizacion", style: TextStyle(color: Colors.white),),
-                                    onPressed: (){
-                                      controller.loadProgress();
-                                      controller.rutaView(true);
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                ElevatedButton(
-                                  child:
-                                  const Text("Ruta al destino", style: TextStyle(color: Colors.white),),
-                                  onPressed: () {
-                                    controller.loadProgress();
-                                    controller.rutaView(false);
-                                    Navigator.of(context).pop();
-                                  },
-                                )
-                              ],
-                            );
-                          }
+                    padding:
+                        const EdgeInsets.only(left:200,right: 0,top:0,bottom: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: FloatingActionButton(
+                            onPressed: () => {
+                              // TODO: Show the list of places and their rooms
+                            },
+                            backgroundColor: Colors.deepPurple,
+                            child: const Icon(Icons.layers),
+                          ),
                         ),
-                      },
-                      backgroundColor: Colors.deepPurple,
-                      child: const Icon(Icons.alt_route_rounded),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: FloatingActionButton(
+                            onPressed: () => {
+                              showDialog(
+                                context: context,
+                                builder: (buildcontext) {
+                                  return AlertDialog(
+                                    title: const Text("Punto de origen"),
+                                    content: const Text("Quiere la ruta desde su localizacion o desde punto de marcado?"),
+                                    actions: <Widget>[
+                                        ElevatedButton(
+                                          child:
+                                          const Text("Mi localizacion", style: TextStyle(color: Colors.white),),
+                                          onPressed: (){
+                                            controller.loadProgress();
+                                            controller.rutaView(true);
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ElevatedButton(
+                                        child:
+                                        const Text("Ruta al destino", style: TextStyle(color: Colors.white),),
+                                        onPressed: () {
+                                          controller.loadProgress();
+                                          controller.rutaView(false);
+                                          Navigator.of(context).pop();
+                                        },
+                                      )
+                                    ],
+                                  );
+                                }
+                              ),
+                            },
+                            backgroundColor: Colors.deepPurple,
+                            child: const Icon(Icons.alt_route_rounded),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-            ),
+          ),
             floatingActionButtonLocation:
-                FloatingActionButtonLocation.endDocked
-            // This trailing comma makes auto-formatting nicer for build methods.
-            ),
+            FloatingActionButtonLocation.endDocked
+        ),
       ),
     );
   }
