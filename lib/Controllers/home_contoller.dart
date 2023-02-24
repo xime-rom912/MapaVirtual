@@ -32,9 +32,9 @@ class HomeController extends ChangeNotifier {
     LatLng fromPoint = markers.first.position;
     LatLng toPoint = markers.last.position;
 
-
-    if(myLocation != null && flag){
-      findDirections(myLocation! as maps.LatLng, fromPoint!);
+\
+    if(myLocation != null && flag && fromPoint != null){
+      findDirections(myLocation!, fromPoint!);
     }else if (fromPoint != null && toPoint != null) {
       findDirections(fromPoint!, toPoint!);
       notifyListeners();
@@ -134,6 +134,19 @@ class HomeController extends ChangeNotifier {
       );
       newRoute.add(line);
       _route = newRoute;
+      loadProgress();
+    }
+    notifyListeners();
+  }
+
+  bool visible = false;
+
+  loadProgress (){
+    if(visible == true){
+      visible = false;
+    }
+    else {
+      visible = true;
     }
     notifyListeners();
   }

@@ -33,19 +33,10 @@ class MyApp extends StatelessWidget {
 }
 //ignore: must_be_immutable
 class MyHomePage extends StatelessWidget {
-  MyHomePage({super.key});
+  const MyHomePage({super.key});
   get floatingActionButton => null;
 
-  bool visible = false;
-
-  loadProgress (){
-    if(visible == true){
-      visible = false;
-    }
-    else {
-      visible = true;
-    }
-  }
+  @override
   Widget build(BuildContext context) {
     final List<Place> places = [
       const Place('16', LatLng(28.704100198007694, -106.138842846805),3,0),
@@ -158,7 +149,7 @@ class MyHomePage extends StatelessWidget {
                         maintainSize: true,
                         maintainAnimation: true,
                         maintainState: true,
-                        visible: visible,
+                        visible: controller.visible,
                         child: Container(
                             margin: const EdgeInsets.only(top: 50, bottom: 30),
                             child: const CircularProgressIndicator(
@@ -191,18 +182,18 @@ class MyHomePage extends StatelessWidget {
                                     child:
                                     const Text("Mi localizacion", style: TextStyle(color: Colors.white),),
                                     onPressed: (){
+                                      controller.loadProgress();
                                       controller.rutaView(true);
                                       Navigator.of(context).pop();
-                                      loadProgress();
                                     },
                                   ),
                                 ElevatedButton(
                                   child:
-                                  const Text("Punto marcado", style: TextStyle(color: Colors.white),),
+                                  const Text("Ruta al destino", style: TextStyle(color: Colors.white),),
                                   onPressed: () {
+                                    controller.loadProgress();
                                     controller.rutaView(false);
                                     Navigator.of(context).pop();
-                                    loadProgress();
                                   },
                                 )
                               ],
