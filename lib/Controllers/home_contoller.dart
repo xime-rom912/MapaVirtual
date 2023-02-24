@@ -26,17 +26,16 @@ class HomeController extends ChangeNotifier {
   Set<maps.Polyline> get currentRoute => _route;
 
   Future<void> rutaView(bool flag) async {
-    Position position =
-      await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    LatLng myLocation = LatLng(position.latitude,position.longitude);
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    LatLng myLocation = LatLng(position.latitude, position.longitude);
     LatLng fromPoint = markers.first.position;
     LatLng toPoint = markers.last.position;
 
-\
-    if(myLocation != null && flag && fromPoint != null){
-      findDirections(myLocation!, fromPoint!);
-    }else if (fromPoint != null && toPoint != null) {
-      findDirections(fromPoint!, toPoint!);
+    if (myLocation != null && flag && fromPoint != null) {
+      findDirections(myLocation, fromPoint);
+    } else if (fromPoint != null && toPoint != null) {
+      findDirections(fromPoint, toPoint);
       notifyListeners();
     }
   }
@@ -53,16 +52,16 @@ class HomeController extends ChangeNotifier {
     _markers[markerId] = marker;
   }
 
-  void onTap(LatLng position/*, int building, int level*/) {
+  void onTap(LatLng position /*, int building, int level*/) {
     currentRoute.clear();
-    if(flag) {
+    if (flag) {
       const id = '0';
-      marker(id,position);
+      marker(id, position);
       //cambio(building,level)
       flag = false;
     } else {
       const id = '1';
-      marker(id,position);
+      marker(id, position);
       //cambio(building,level)
       flag = true;
     }
@@ -140,11 +139,10 @@ class HomeController extends ChangeNotifier {
 
   bool visible = false;
 
-  loadProgress (){
-    if(visible == true){
+  loadProgress() {
+    if (visible == true) {
       visible = false;
-    }
-    else {
+    } else {
       visible = true;
     }
     notifyListeners();
