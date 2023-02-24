@@ -2,8 +2,8 @@
 
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapavirtual/directions_repository.dart';
@@ -21,13 +21,21 @@ class HomeController extends ChangeNotifier {
 
   Set<Marker> get markers => _markers.values.toSet();
 
-  void rutaView() {
-    //LatLng fromPoint = const LatLng(28.7037201, -106.1398726);
-    //LatLng toPoint = const LatLng(28.7039989, -106.1386501);
+  Set<maps.Polyline> _route = {};
+
+  Set<maps.Polyline> get currentRoute => _route;
+
+  Future<void> rutaView(bool flag) async {
+    Position position =
+      await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    LatLng myLocation = LatLng(position.latitude,position.longitude);
     LatLng fromPoint = markers.first.position;
     LatLng toPoint = markers.last.position;
 
-    if (fromPoint != null && toPoint != null) {
+\
+    if(myLocation != null && flag && fromPoint != null){
+      findDirections(myLocation!, fromPoint!);
+    }else if (fromPoint != null && toPoint != null) {
       findDirections(fromPoint!, toPoint!);
       notifyListeners();
     }
@@ -45,14 +53,17 @@ class HomeController extends ChangeNotifier {
     _markers[markerId] = marker;
   }
 
-  void onTap(LatLng position) {
-    if (flag) {
+  void onTap(LatLng position/*, int building, int level*/) {
+    currentRoute.clear();
+    if(flag) {
       const id = '0';
-      marker(id, position);
+      marker(id,position);
+      //cambio(building,level)
       flag = false;
     } else {
       const id = '1';
-      marker(id, position);
+      marker(id,position);
+      //cambio(building,level)
       flag = true;
     }
     notifyListeners();
@@ -105,10 +116,6 @@ class HomeController extends ChangeNotifier {
     zoom: 18,
   );
 
-  Set<maps.Polyline> _route = {};
-
-  Set<maps.Polyline> get currentRoute => _route;
-
   findDirections(maps.LatLng from, maps.LatLng to) async {
     final directions = await DirectionsRepository()
         .getDirections(origin: from, destination: to);
@@ -126,7 +133,20 @@ class HomeController extends ChangeNotifier {
       );
       newRoute.add(line);
       _route = newRoute;
-      notifyListeners();
+      loadProgress();
     }
+    notifyListeners();
+  }
+
+  bool visible = false;
+
+  loadProgress (){
+    if(visible == true){
+      visible = false;
+    }
+    else {
+      visible = true;
+    }
+    notifyListeners();
   }
 }

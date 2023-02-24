@@ -23,7 +23,7 @@ class SearchPlacesDelegate extends SearchDelegate<Place> {
   Widget? buildLeading(BuildContext context) {
     return IconButton(
         onPressed: (){
-          close(context, const Place("", LatLng(0, 0)));
+          close(context, const Place("",LatLng(0,0),0,0));
         },
         icon: const Icon(Icons.arrow_back),
     );
@@ -59,7 +59,7 @@ class SearchPlacesDelegate extends SearchDelegate<Place> {
               Icons.arrow_forward_ios,
             ),
             onTap: (){
-              close(context, Place(_filter[index].name, _filter[index].position));
+              close(context, Place(_filter[index].name, _filter[index].position,_filter[index].building,_filter[index].flor));
             },
           );
         },

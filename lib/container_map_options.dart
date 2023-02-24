@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:mapavirtual/Controllers/home_contoller.dart';
 import 'package:mapavirtual/accordion_layers.dart';
 
 typedef OnRoutDisplayCallback = Function();
 
 class ContainerMapOptions extends StatefulWidget {
-  const ContainerMapOptions({required this.onRouteDisplay, super.key});
+  const ContainerMapOptions(
+      {required this.homeController, required this.onRouteDisplay, super.key});
   final OnRoutDisplayCallback onRouteDisplay;
+  final HomeController homeController;
 
   @override
   State<ContainerMapOptions> createState() => _ContainerMapOptionsState();
@@ -25,6 +28,17 @@ class _ContainerMapOptionsState extends State<ContainerMapOptions> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          Visibility(
+              maintainSize: true,
+              maintainAnimation: true,
+              maintainState: true,
+              visible: widget.homeController.visible,
+              child: Container(
+                margin: const EdgeInsets.only(top: 50, bottom: 30),
+                child: const CircularProgressIndicator(
+                  color: Colors.purple,
+                ),
+              )),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: FloatingActionButton(
