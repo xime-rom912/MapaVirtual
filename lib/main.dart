@@ -6,6 +6,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapavirtual/Controllers/home_contoller.dart';
+import 'package:mapavirtual/container_map_options.dart';
 import 'package:mapavirtual/pages.dart';
 import 'package:mapavirtual/place.dart';
 import 'package:mapavirtual/routes.dart';
@@ -124,7 +125,7 @@ class MyHomePage extends StatelessWidget {
                       context: context,
                       delegate: SearchPlacesDelegate(places),
                     );
-                    if(selectedPlace !=null) {
+                    if (selectedPlace != null) {
                       controller.onTap(selectedPlace.position);
                     }
                   },
@@ -144,32 +145,9 @@ class MyHomePage extends StatelessWidget {
               polylines: controller.currentRoute,
               onTap: controller.onTap,
             ),
-            floatingActionButton: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: FloatingActionButton(
-                      onPressed: () => {
-                        // TODO: Show the list of places and their rooms
-                      },
-                      backgroundColor: Colors.deepPurple,
-                      child: const Icon(Icons.layers),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(5.0),
-                    child: FloatingActionButton(
-                      onPressed: () => {controller.rutaView()},
-                      backgroundColor: Colors.deepPurple,
-                      child: const Icon(Icons.alt_route_rounded),
-                    ),
-                  ),
-                ],
-              ),
+            // body: MyAccordion(),
+            floatingActionButton: ContainerMapOptions(
+              onRouteDisplay: () => {controller.rutaView()},
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.startDocked
