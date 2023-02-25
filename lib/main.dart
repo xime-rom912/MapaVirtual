@@ -148,46 +148,50 @@ class MyHomePage extends StatelessWidget {
             // body: MyAccordion(),
             floatingActionButton: ContainerMapOptions(
               homeController: controller,
-              onRouteDisplay: () => {
-                showDialog(
-                    context: context,
-                    builder: (buildcontext) {
-                      return AlertDialog(
-                        title: const Text("Punto de origen"),
-                        content: const Text(
-                            "Quiere la ruta desde su localizacion o desde punto de marcado?"),
-                        actions: <Widget>[
-                          ElevatedButton(
-                            child: const Text(
-                              "Mi localizacion",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            onPressed: () {
-                              controller.loadProgress();
-                              controller.rutaView(true);
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          ElevatedButton(
-                            child: const Text(
-                              "Ruta al destino",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            onPressed: () {
-                              controller.loadProgress();
-                              controller.rutaView(false);
-                              Navigator.of(context).pop();
-                            },
-                          )
-                        ],
-                      );
-                    }),
-              },
+              onRouteDisplay: () => handleRouteDisplay(context, controller),
             ),
             floatingActionButtonLocation: FloatingActionButtonLocation.endDocked
             // This trailing comma makes auto-formatting nicer for build methods.
             ),
       ),
     );
+  }
+
+  handleRouteDisplay(context, controller) {
+    showDialog(
+        context: context,
+        builder: (buildcontext) {
+          return AlertDialog(
+            title: const Text("Punto de origen"),
+            content: const Text(
+                "Quiere la ruta desde su localizacion o desde punto de marcado?"),
+            actions: <Widget>[
+              ElevatedButton(
+                key: const Key("My location"),
+                child: const Text(
+                  "Mi localizacion",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  controller.loadProgress();
+                  controller.rutaView(true);
+                  Navigator.of(context).pop();
+                },
+              ),
+              ElevatedButton(
+                key: const Key("Route to destiny"),
+                child: const Text(
+                  "Ruta al destino",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  controller.loadProgress();
+                  controller.rutaView(false);
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
   }
 }

@@ -12,7 +12,7 @@ class HomeController extends ChangeNotifier {
   final Completer<GoogleMapController> _controller = Completer();
   final LatLng fromPoint = const LatLng(28.704521, -106.138989);
   final LatLng toPoint = const LatLng(28.703741, -106.140353);
-  late GoogleMapController _controllerMap;
+  // late GoogleMapController _controllerMap;
   late bool flag = true;
 
   final Map<MarkerId, Marker> _markers = {};

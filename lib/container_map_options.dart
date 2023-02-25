@@ -42,6 +42,7 @@ class _ContainerMapOptionsState extends State<ContainerMapOptions> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: FloatingActionButton(
+              key: const Key("Layers button"),
               onPressed: () => {showOverlay()},
               backgroundColor: Colors.deepPurple,
               child: const Icon(Icons.layers),
@@ -50,6 +51,7 @@ class _ContainerMapOptionsState extends State<ContainerMapOptions> {
           Padding(
             padding: const EdgeInsets.all(5.0),
             child: FloatingActionButton(
+              key: const Key("Routes button"),
               onPressed: () => {widget.onRouteDisplay()},
               backgroundColor: Colors.deepPurple,
               child: const Icon(Icons.alt_route_rounded),
@@ -67,10 +69,28 @@ class _ContainerMapOptionsState extends State<ContainerMapOptions> {
   }
 
   Widget buildOverlay() {
-    return AccordionLayers();
+    return GestureDetector(
+      child: Container(
+        color: Colors.black.withOpacity(0.5),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height * 0.75,
+              maxWidth: MediaQuery.of(context).size.width - 20,
+            ),
+            child: AccordionLayers(),
+          ),
+        ),
+      ),
+      onTap: () {
+        debugPrint("HOLA");
+        hideOverlay();
+      },
+    );
   }
 
   void hideOverlay() {
-    // overlayEntry?overlayEntry.remove():null
+    overlayEntry?.remove();
+    overlayEntry = null;
   }
 }
