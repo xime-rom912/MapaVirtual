@@ -78,7 +78,9 @@ class _ContainerMapOptionsState extends State<ContainerMapOptions> {
               maxHeight: MediaQuery.of(context).size.height * 0.75,
               maxWidth: MediaQuery.of(context).size.width - 20,
             ),
-            child: AccordionLayers(),
+            child: AccordionLayers(
+              homeController: widget.homeController,
+            ),
           ),
         ),
       ),

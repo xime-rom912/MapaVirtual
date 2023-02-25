@@ -71,17 +71,20 @@ class HomeController extends ChangeNotifier {
   Future<void> onMapCreated(GoogleMapController controller) async {
     debugPrint("THE MAP HAS BEEN CREATED AAAAAAAAAAAAAAAAAAAAAAAAAA");
     // await openClassroomsImage();
-    await loadImageOnMap(
-        classroomsImageFilename, classroomsPosition, 0, classroomsSize);
-    await loadImageOnMap(
-        edificioCImageFilename, edificioCPosition, 1, edificioCSize);
+    // await loadImageOnMap(
+    //     classroomsImageFilename, classroomsPosition, "0", classroomsSize);
+    // await loadImageOnMap(
+    //     edificioCImageFilename, edificioCPosition, "1", edificioCSize);
     _controller.complete(controller);
     debugPrint("GroundOverlaySet $classroomsGroundOverlaysSet");
     notifyListeners();
   }
 
   loadImageOnMap(
-      String imageFilename, LatLng coords, int id, Size imageSize) async {
+      {required String imageFilename,
+      required LatLng coords,
+      required String id,
+      required Size imageSize}) async {
     BitmapDescriptor bitmap = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration(size: imageSize), imageFilename);
     debugPrint("DEV: Image obtained: ${bitmap.toJson()}");
