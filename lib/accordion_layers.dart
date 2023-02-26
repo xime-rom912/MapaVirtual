@@ -53,10 +53,12 @@ class _AccordionLayersState extends State<AccordionLayers> {
       expandedValue: 'Contenido del Item 10',
     ),
   ];
+  late List<BuildingModel> buildings;
 
   @override
-  Widget build(BuildContext context) {
-    final List<BuildingModel> buildings = <BuildingModel>[
+  void initState() {
+    super.initState();
+    buildings = <BuildingModel>[
       BuildingModel(
         name: "Laboratorios",
         floors: <FloorModel>[
@@ -176,7 +178,10 @@ class _AccordionLayersState extends State<AccordionLayers> {
         },
       ),
     ];
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: ExpansionPanelList(
         expansionCallback: (int index, bool isExpanded) {
@@ -210,6 +215,7 @@ class _AccordionLayersState extends State<AccordionLayers> {
                 );
               }).toList(),
             ),
+            // body: const Text("A"),
             isExpanded: building.isExpanded,
             canTapOnHeader: true,
           );
