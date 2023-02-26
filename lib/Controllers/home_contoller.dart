@@ -71,35 +71,69 @@ class HomeController extends ChangeNotifier {
   Future<void> onMapCreated(GoogleMapController controller) async {
     debugPrint("THE MAP HAS BEEN CREATED AAAAAAAAAAAAAAAAAAAAAAAAAA");
     // await openClassroomsImage();
+    await loadImageOnMap(
+      idRender: "TEST Salones",
+      image: MapsImage(
+          id: "0",
+          filename: classroomsImageFilename,
+          coords: classroomsPosition,
+          size: classroomsSize),
+    );
     // await loadImageOnMap(
-    //     classroomsImageFilename, classroomsPosition, "0", classroomsSize);
-    // await loadImageOnMap(
-    //     edificioCImageFilename, edificioCPosition, "1", edificioCSize);
+    //   image: MapsImage(
+    //       id: "1",
+    //       filename: edificioCImageFilename,
+    //       coords: edificioCPosition,
+    //       size: edificioCSize),
+    // );
     _controller.complete(controller);
     debugPrint("GroundOverlaySet $classroomsGroundOverlaysSet");
+  }
+
+  loadImageOnMap({
+    required String idRender,
+    required MapsImage image,
+  }) async {
+    GroundOverlay groundOverlay =
+        await getGroundOverlayForImage(idRender, image);
+    bool isWorking = classroomsGroundOverlaysSet.add(groundOverlay);
+
+    debugPrint("DEV: Classroom Ground Overlay Set is working? $isWorking");
     notifyListeners();
   }
 
-  loadImageOnMap(
-      {required String imageFilename,
-      required LatLng coords,
-      required String id,
-      required Size imageSize}) async {
-    BitmapDescriptor bitmap = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(size: imageSize), imageFilename);
-    debugPrint("DEV: Image obtained: ${bitmap.toJson()}");
+  void replaceImageOnMap({
+    required String idRender,
+    required MapsImage image,
+  }) async {
+    // debugPrint("DEV: Image obtained: ${bitmap.toJson()}");
+    GroundOverlayId prevGroundOverlay = GroundOverlayId(idRender);
+    classroomsGroundOverlaysSet.removeWhere((GroundOverlay groundOverlay) =>
+        groundOverlay.groundOverlayId == prevGroundOverlay);
 
-    bool isWorking = classroomsGroundOverlaysSet.add(GroundOverlay(
-      groundOverlayId: GroundOverlayId("$imageFilename $id"),
+    GroundOverlay groundOverlay =
+        await getGroundOverlayForImage(idRender, image);
+    bool isWorking = classroomsGroundOverlaysSet.add(groundOverlay);
+    // debugPrint("DEV: Classroom Ground Overlay Set is working? $isWorking");
+    notifyListeners();
+  }
+
+  Future<GroundOverlay> getGroundOverlayForImage(
+      String idRender, MapsImage image) async {
+    BitmapDescriptor bitmap = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(size: image.size), image.filename);
+
+    return GroundOverlay(
+      groundOverlayId: GroundOverlayId(idRender),
       bitmapDescriptor: bitmap,
-      height: imageSize.height,
-      width: imageSize.width,
-      location: coords,
+      height: image.size.height,
+      width: image.size.width,
+      location: image.coords,
       onTap: () {
-        debugPrint("DEV: The ground overlay has been tapped");
+        // TODO: Add action on tap
+        // debugPrint("DEV: The ground overlay has been tapped");
       },
-    ));
-    debugPrint("DEV: Classroom Ground Overlay Set is working? $isWorking");
+    );
   }
 
   final classroomsImageFilename = "assets/png/classrooms_level_1.png";
@@ -150,4 +184,17 @@ class HomeController extends ChangeNotifier {
     }
     notifyListeners();
   }
+}
+
+class MapsImage {
+  const MapsImage({
+    required this.id,
+    required this.filename,
+    required this.coords,
+    required this.size,
+  });
+  final String id;
+  final String filename;
+  final LatLng coords;
+  final Size size;
 }

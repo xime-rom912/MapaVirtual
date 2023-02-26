@@ -1,226 +1,94 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapavirtual/Controllers/home_contoller.dart';
+import 'package:mapavirtual/floor_item.dart';
 
 class AccordionLayers extends StatefulWidget {
-  const AccordionLayers({required this.homeController, super.key});
+  const AccordionLayers(
+      {required this.buildings, required this.homeController, super.key});
   final HomeController homeController;
+  final List<BuildingModel> buildings;
 
   @override
   _AccordionLayersState createState() => _AccordionLayersState();
 }
 
 class _AccordionLayersState extends State<AccordionLayers> {
-  final List<Item> _items = <Item>[
-    Item(
-      headerValue: 'Item 1',
-      expandedValue: 'Contenido del Item 1',
-    ),
-    Item(
-      headerValue: 'Item 2',
-      expandedValue: 'Contenido del Item 2',
-    ),
-    Item(
-      headerValue: 'Item 3',
-      expandedValue: 'Contenido del Item 3',
-    ),
-    Item(
-      headerValue: 'Item 4',
-      expandedValue: 'Contenido del Item 4',
-    ),
-    Item(
-      headerValue: 'Item 5',
-      expandedValue: 'Contenido del Item 5',
-    ),
-    Item(
-      headerValue: 'Item 6',
-      expandedValue: 'Contenido del Item 6',
-    ),
-    Item(
-      headerValue: 'Item 7',
-      expandedValue: 'Contenido del Item 7',
-    ),
-    Item(
-      headerValue: 'Item 8',
-      expandedValue: 'Contenido del Item 8',
-    ),
-    Item(
-      headerValue: 'Item 9',
-      expandedValue: 'Contenido del Item 9',
-    ),
-    Item(
-      headerValue: 'Item 10',
-      expandedValue: 'Contenido del Item 10',
-    ),
-  ];
-  late List<BuildingModel> buildings;
-
   @override
   void initState() {
     super.initState();
-    buildings = <BuildingModel>[
-      BuildingModel(
-        name: "Laboratorios",
-        floors: <FloorModel>[
-          const FloorModel(
-            name: "Subnivel 2",
-            mapsImage: MapsImage(
-              ID: "SL2",
-              coords: LatLng(28.703168888427548, -106.14043582907642),
-              filename: "assets/png/laboratories_level_s2_03.png",
-              size: Size(110, 110),
-            ),
-          ),
-          const FloorModel(
-            name: "Subnivel 1",
-            mapsImage: MapsImage(
-              ID: "SL1",
-              coords: LatLng(28.703168888427548, -106.14043582907642),
-              filename: "assets/png/laboratories_level_s1_03.png",
-              size: Size(110, 110),
-            ),
-          ),
-          const FloorModel(
-            name: "Nivel 0",
-            mapsImage: MapsImage(
-              ID: "L0",
-              coords: LatLng(28.703168888427548, -106.14043582907642),
-              filename: "assets/png/laboratories_level_0_03.png",
-              size: Size(110, 110),
-            ),
-          ),
-          const FloorModel(
-            name: "Nivel 1",
-            mapsImage: MapsImage(
-              ID: "L1",
-              coords: LatLng(28.703168888427548, -106.14043582907642),
-              filename: "assets/png/laboratories_level_1_03.png",
-              size: Size(110, 110),
-            ),
-          ),
-          const FloorModel(
-            name: "Nivel 2",
-            mapsImage: MapsImage(
-              ID: "L2",
-              coords: LatLng(28.703168888427548, -106.14043582907642),
-              filename: "assets/png/laboratories_level_2_03.png",
-              size: Size(110, 110),
-            ),
-          ),
-        ],
-        onChangeBuildingFloor: (BuildingModel building, FloorModel floor) {
-          final MapsImage image = floor.mapsImage;
-          widget.homeController.loadImageOnMap(
-            imageFilename: image.filename,
-            coords: image.coords,
-            id: image.ID,
-            imageSize: image.size,
-          );
-        },
-      ),
-      BuildingModel(
-        name: "Laboratorios",
-        floors: <FloorModel>[
-          const FloorModel(
-            name: "Subnivel 2",
-            mapsImage: MapsImage(
-              ID: "SL2",
-              coords: LatLng(28.703168888427548, -106.14043582907642),
-              filename: "assets/png/laboratories_level_s2_03.png",
-              size: Size(110, 110),
-            ),
-          ),
-          const FloorModel(
-            name: "Subnivel 1",
-            mapsImage: MapsImage(
-              ID: "SL1",
-              coords: LatLng(28.703168888427548, -106.14043582907642),
-              filename: "assets/png/laboratories_level_s1_03.png",
-              size: Size(110, 110),
-            ),
-          ),
-          const FloorModel(
-            name: "Nivel 0",
-            mapsImage: MapsImage(
-              ID: "L0",
-              coords: LatLng(28.703168888427548, -106.14043582907642),
-              filename: "assets/png/laboratories_level_0_03.png",
-              size: Size(110, 110),
-            ),
-          ),
-          const FloorModel(
-            name: "Nivel 1",
-            mapsImage: MapsImage(
-              ID: "L1",
-              coords: LatLng(28.703168888427548, -106.14043582907642),
-              filename: "assets/png/laboratories_level_1_03.png",
-              size: Size(110, 110),
-            ),
-          ),
-          const FloorModel(
-            name: "Nivel 2",
-            mapsImage: MapsImage(
-              ID: "L2",
-              coords: LatLng(28.703168888427548, -106.14043582907642),
-              filename: "assets/png/laboratories_level_2_03.png",
-              size: Size(110, 110),
-            ),
-          ),
-        ],
-        onChangeBuildingFloor: (BuildingModel building, FloorModel floor) {
-          final MapsImage image = floor.mapsImage;
-          widget.homeController.loadImageOnMap(
-            imageFilename: image.filename,
-            coords: image.coords,
-            id: image.ID,
-            imageSize: image.size,
-          );
-        },
-      ),
-    ];
   }
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("FTR ${widget.buildings[0].floorToRender}");
     return SingleChildScrollView(
       child: ExpansionPanelList(
         expansionCallback: (int index, bool isExpanded) {
           debugPrint("Building $index Clicked");
-          debugPrint("${buildings[index].isExpanded}");
+          debugPrint("${widget.buildings[index].isExpanded}");
           setState(() {
-            // buildings[index].isExpanded = !buildings[index].isExpanded;
-            buildings[index].toogleExpanded();
+            // widget.buildings[index].isExpanded = !widget.buildings[index].isExpanded;
+            widget.buildings[index].toogleExpanded();
           });
-          debugPrint("${buildings[index].isExpanded}");
+          debugPrint("${widget.buildings[index].isExpanded}");
         },
-        children: buildings.map((BuildingModel building) {
-          return ExpansionPanel(
-            headerBuilder: (BuildContext context, bool isExpanded) {
-              return ListTile(
-                title: Text(building.name),
-              );
-            },
-            body: Column(
-              children: building.floors.map((FloorModel floor) {
-                return RadioListTile(
-                  title: Text(floor.name),
-                  value: 1,
-                  groupValue: building.floorToRender,
-                  onChanged: (value) {
-                    // setState(() {
-                    //   building.floorToRender = value as int;
-                    // });
-                    building.setFloorToRender(value as int);
-                  },
-                );
-              }).toList(),
-            ),
-            // body: const Text("A"),
-            isExpanded: building.isExpanded,
-            canTapOnHeader: true,
-          );
+        children: widget.buildings.map((BuildingModel building) {
+          return buildingItem(building);
         }).toList(),
       ),
+    );
+  }
+
+  ExpansionPanel buildingItem(BuildingModel building) {
+    return ExpansionPanel(
+      headerBuilder: (BuildContext context, bool isExpanded) {
+        return ListTile(
+          title: Text(building.name),
+        );
+      },
+      body: Column(
+        children: renderOptions(building),
+      ),
+      // body: const Text("A"),
+      isExpanded: building.isExpanded,
+      canTapOnHeader: true,
+    );
+  }
+
+  List<Widget> renderOptions(BuildingModel building) {
+    // debugPrint("FTR ${building.hashCode}");
+    int length = building.floors.length;
+    List<Widget> optionsList = [];
+    for (int i = 0; i < length; i++) {
+      optionsList.add(
+        floorItem(
+          index: i,
+          building: building,
+          floor: building.floors[i],
+        ),
+      );
+    }
+    return optionsList;
+  }
+
+  Widget floorItem({
+    required int index,
+    required BuildingModel building,
+    required FloorModel floor,
+  }) {
+    return RadioListTile(
+      key: Key(floor.name),
+      title: Text(floor.name),
+      value: index,
+      groupValue: building.floorToRender,
+      onChanged: (value) {
+        // debugPrint("FTR ${widget.building.floorToRender}");
+        setState(() {
+          building.setFloorToRender(value as int);
+        });
+        // debugPrint("FTR ${widget.building.floorToRender}");
+      },
     );
   }
 }
@@ -241,6 +109,7 @@ typedef OnChangeBuildingFloorCallback = Function(BuildingModel, FloorModel);
 
 class BuildingModel {
   BuildingModel({
+    required this.idOfMapRender,
     required this.name,
     required this.floors,
     required this.onChangeBuildingFloor,
@@ -249,10 +118,12 @@ class BuildingModel {
   });
 
   void setFloorToRender(int floorToRender) {
-    if (floorToRender > 0 && floorToRender < floors.length) {
+    debugPrint("PREVIOUS FLOOR TO RENDER ${this.floorToRender}");
+    if (floorToRender >= 0 && floorToRender < floors.length) {
       this.floorToRender = floorToRender;
       onChangeBuildingFloor(this, floors[floorToRender]);
     } else {
+      debugPrint("ELSE: THE SELECTED FLOOR IS NOT ALLOWED");
       // TODO: Add necesary exceptions to the code
     }
   }
@@ -261,6 +132,7 @@ class BuildingModel {
     isExpanded = !isExpanded;
   }
 
+  String idOfMapRender;
   int floorToRender;
   bool isExpanded;
   final String name;
@@ -276,17 +148,4 @@ class FloorModel {
 
   final String name;
   final MapsImage mapsImage;
-}
-
-class MapsImage {
-  const MapsImage({
-    required this.ID,
-    required this.filename,
-    required this.coords,
-    required this.size,
-  });
-  final String ID;
-  final String filename;
-  final LatLng coords;
-  final Size size;
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapavirtual/Controllers/home_contoller.dart';
 import 'package:mapavirtual/accordion_layers.dart';
 
@@ -16,9 +17,80 @@ class ContainerMapOptions extends StatefulWidget {
 
 class _ContainerMapOptionsState extends State<ContainerMapOptions> {
   OverlayEntry? overlayEntry;
+
+  late final List<BuildingModel> buildings;
+
   @override
   void initState() {
     super.initState();
+
+    buildings = <BuildingModel>[
+      BuildingModel(
+        floorToRender: 2,
+        idOfMapRender: "Laboratorios",
+        name: "Laboratorios",
+        floors: <FloorModel>[
+          const FloorModel(
+            name: "Subnivel 2",
+            mapsImage: MapsImage(
+              id: "SL2",
+              coords: LatLng(28.70324537827747, -106.14056450878434),
+              filename: "assets/png/laboratories_level_s2_03.png",
+              size: Size(145, 145),
+            ),
+          ),
+          const FloorModel(
+            name: "Subnivel 1",
+            mapsImage: MapsImage(
+              id: "SL1",
+              coords: LatLng(28.70324537827747, -106.14056450878434),
+              filename: "assets/png/laboratories_level_s1_03.png",
+              size: Size(145, 145),
+            ),
+          ),
+          const FloorModel(
+            name: "Nivel 0",
+            mapsImage: MapsImage(
+              id: "L0",
+              coords: LatLng(28.70324537827747, -106.14056450878434),
+              filename: "assets/png/laboratories_level_0_03.png",
+              size: Size(145, 145),
+            ),
+          ),
+          const FloorModel(
+            name: "Nivel 1",
+            mapsImage: MapsImage(
+              id: "L1",
+              coords: LatLng(28.70324537827747, -106.14056450878434),
+              filename: "assets/png/laboratories_level_1_03.png",
+              size: Size(145, 145),
+            ),
+          ),
+          const FloorModel(
+            name: "Nivel 2",
+            mapsImage: MapsImage(
+              id: "L2",
+              coords: LatLng(28.70324537827747, -106.14056450878434),
+              filename: "assets/png/laboratories_level_2_03.png",
+              size: Size(145, 145),
+            ),
+          ),
+        ],
+        onChangeBuildingFloor: (BuildingModel building, FloorModel floor) {
+          final MapsImage image = floor.mapsImage;
+          widget.homeController.replaceImageOnMap(
+              idRender: building.idOfMapRender, image: image);
+        },
+      ),
+    ];
+
+    for (int i = 0; i < buildings.length; i++) {
+      var floorToRender = buildings[i].floorToRender;
+      widget.homeController.loadImageOnMap(
+        idRender: buildings[i].idOfMapRender,
+        image: buildings[i].floors[floorToRender].mapsImage,
+      );
+    }
   }
 
   @override
@@ -79,6 +151,7 @@ class _ContainerMapOptionsState extends State<ContainerMapOptions> {
               maxWidth: MediaQuery.of(context).size.width - 20,
             ),
             child: AccordionLayers(
+              buildings: buildings,
               homeController: widget.homeController,
             ),
           ),
