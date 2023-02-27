@@ -106,92 +106,95 @@ class MyHomePage extends StatelessWidget {
       create: (_) => HomeController(),
       child: Consumer<HomeController>(
         builder: (_, controller, __) => Scaffold(
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              actions: <Widget>[
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, Routes.ARCORE);
-                  },
-                  child: const Text('Camara'),
-                ),
-              ],
-              title: Padding(
-                padding: const EdgeInsets.only(bottom: 10, right: 10),
-                child: ListTile(
-                  onTap: () async {
-                    final selectedPlace = await showSearch(
-                      context: context,
-                      delegate: SearchPlacesDelegate(places),
-                    );
-                    if (selectedPlace != null) {
-                      controller.onTap(selectedPlace.position);
-                    }
-                  },
-                  title: const Text('Buscar',
-                      style: TextStyle(color: Colors.white)),
+          appBar: AppBar(
+            backgroundColor: Colors.deepPurple,
+            automaticallyImplyLeading: false,
+            actions: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, Routes.ARCORE);
+                },
+                child: const Text('Camara'),
+              ),
+            ],
+            title: Padding(
+              padding: const EdgeInsets.only(bottom: 10, right: 10),
+              child: ListTile(
+                onTap: () async {
+                  final selectedPlace = await showSearch(
+                    context: context,
+                    delegate: SearchPlacesDelegate(places),
+                  );
+                  if (selectedPlace != null) {
+                    controller.onTap(selectedPlace.position);
+                  }
+                },
+                title: const Text(
+                  'Buscar',
+                  style: TextStyle(color: Colors.white, fontSize: 24),
                 ),
               ),
             ),
-            body: GoogleMap(
-              markers: controller.markers,
-              mapType: MapType.normal,
-              initialCameraPosition: controller.initialCameraPosition,
-              myLocationButtonEnabled: true,
-              myLocationEnabled: true,
-              onMapCreated: controller.onMapCreated,
-              groundOverlays: controller.classroomsGroundOverlaysSet,
-              polylines: controller.currentRoute,
-              onTap: controller.onTap,
-              zoomControlsEnabled: false,
-            ),
-            // body: MyAccordion(),
-            floatingActionButton: ContainerMapOptions(
-              homeController: controller,
-              onRouteDisplay: () => handleRouteDisplay(context, controller),
-            ),
-            floatingActionButtonLocation: FloatingActionButtonLocation.endDocked
-            // This trailing comma makes auto-formatting nicer for build methods.
-            ),
+          ),
+          body: GoogleMap(
+            markers: controller.markers,
+            mapType: MapType.normal,
+            initialCameraPosition: controller.initialCameraPosition,
+            myLocationButtonEnabled: true,
+            myLocationEnabled: true,
+            onMapCreated: controller.onMapCreated,
+            groundOverlays: controller.classroomsGroundOverlaysSet,
+            polylines: controller.currentRoute,
+            onTap: controller.onTap,
+            zoomControlsEnabled: false,
+          ),
+          floatingActionButton: ContainerMapOptions(
+            homeController: controller,
+            onRouteDisplay: () => handleRouteDisplay(context, controller),
+          ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+          // This trailing comma makes auto-formatting nicer for build methods.
+        ),
       ),
     );
   }
 
   handleRouteDisplay(context, controller) {
     showDialog(
-        context: context,
-        builder: (buildcontext) {
-          return AlertDialog(
-            title: const Text("Punto de origen"),
-            content: const Text(
-                "Quiere la ruta desde su localizacion o desde punto de marcado?"),
-            actions: <Widget>[
-              ElevatedButton(
-                key: const Key("My location"),
-                child: const Text(
-                  "Mi localizacion",
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () {
-                  controller.loadProgress();
-                  controller.rutaView(true);
-                  Navigator.of(context).pop();
-                },
+      context: context,
+      builder: (buildcontext) {
+        return AlertDialog(
+          title: const Text("Punto de origen"),
+          content: const Text(
+              "Quiere la ruta desde su localizacion o desde punto de marcado?"),
+          actions: <Widget>[
+            ElevatedButton(
+              key: const Key("My location"),
+              child: const Text(
+                "Mi localizacion",
+                style: TextStyle(color: Colors.white),
               ),
-              ElevatedButton(
-                key: const Key("Route to destiny"),
-                child: const Text(
-                  "Ruta al destino",
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () {
-                  controller.loadProgress();
-                  controller.rutaView(false);
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
-        });
+              onPressed: () {
+                controller.loadProgress();
+                controller.rutaView(true);
+                Navigator.of(context).pop();
+              },
+            ),
+            ElevatedButton(
+              key: const Key("Route to destiny"),
+              child: const Text(
+                "Ruta al destino",
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () {
+                controller.loadProgress();
+                controller.rutaView(false);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

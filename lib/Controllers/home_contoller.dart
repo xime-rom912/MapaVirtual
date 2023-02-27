@@ -33,9 +33,9 @@ class HomeController extends ChangeNotifier {
     LatLng toPoint = markers.last.position;
 
     if (myLocation != null && flag && fromPoint != null) {
-      findDirections(myLocation, fromPoint);
+      findDirections(myLocation!, fromPoint!);
     } else if (fromPoint != null && toPoint != null) {
-      findDirections(fromPoint, toPoint);
+      findDirections(fromPoint!, toPoint!);
       notifyListeners();
     }
   }
