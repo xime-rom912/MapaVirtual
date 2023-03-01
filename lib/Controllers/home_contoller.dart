@@ -14,6 +14,7 @@ class HomeController extends ChangeNotifier {
   final LatLng toPoint = const LatLng(28.703741, -106.140353);
   // late GoogleMapController _controllerMap;
   late bool flag = true;
+  late bool isButtonEnable = false;
 
   final Map<MarkerId, Marker> _markers = {};
 
@@ -54,6 +55,7 @@ class HomeController extends ChangeNotifier {
 
   void onTap(LatLng position /*, int building, int level*/) {
     currentRoute.clear();
+    isButtonEnable = true;
     if (flag) {
       const id = '0';
       marker(id, position);

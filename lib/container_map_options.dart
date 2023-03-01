@@ -138,8 +138,14 @@ class _ContainerMapOptionsState extends State<ContainerMapOptions> {
                   padding: const EdgeInsets.all(5.0),
                   child: FloatingActionButton(
                     key: const Key("Routes button"),
-                    onPressed: () => {widget.onRouteDisplay()},
-                    backgroundColor: Colors.deepPurple,
+                    onPressed: () {
+                      if(widget.homeController.isButtonEnable) {
+                        widget.onRouteDisplay();
+                      }else{
+                        null;
+                      }
+                    },
+                    backgroundColor: widget.homeController.isButtonEnable ? Colors.deepPurple : Colors.grey,
                     child: const Icon(Icons.alt_route_rounded),
                   ),
                 ),
