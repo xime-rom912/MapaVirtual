@@ -138,10 +138,10 @@ class HomeController extends ChangeNotifier {
     );
   }
 
-  final classroomsImageFilename = "assets/png/classrooms_level_1.png";
+  final classroomsImageFilename = "assets/png/classrooms_level_D_2.png";
   final classroomsPosition =
-      const LatLng(28.70377124721189, -106.13929063844746);
-  final classroomsSize = const Size(140, 140);
+      const LatLng(28.70384124721189, -106.13930063844746);
+  final classroomsSize = const Size(170, 106);
 
   final edificioCImageFilename = "assets/png/laboratories_level_0_03.png";
   final edificioCPosition =
