@@ -70,17 +70,10 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> onMapCreated(GoogleMapController controller) async {
+ onMapCreated(GoogleMapController controller) async {
     debugPrint("THE MAP HAS BEEN CREATED AAAAAAAAAAAAAAAAAAAAAAAAAA");
     // await openClassroomsImage();
-    await loadImageOnMap(
-      idRender: "TEST Salones",
-      image: MapsImage(
-          id: "0",
-          filename: classroomsImageFilename,
-          coords: classroomsPosition,
-          size: classroomsSize),
-    );
+
     // await loadImageOnMap(
     //   image: MapsImage(
     //       id: "1",

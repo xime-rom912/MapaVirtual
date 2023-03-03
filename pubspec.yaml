@@ -77,14 +77,18 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
   - assets/png/school.png
-  - assets/png/classrooms_level_1.png
+  - assets/png/classrooms_level_D_1.png
+  - assets/png/classrooms_level_D_2.png
+  - assets/png/classrooms_level_E_1.png
+  - assets/png/classrooms_level_E_2.png
   # - assets/png/laboratories_level_1.png
   # - assets/png/laboratories_level_0_01.png
-  - assets/png/laboratories_level_s2_03.png
-  - assets/png/laboratories_level_s1_03.png
   - assets/png/laboratories_level_0_03.png
+  - assets/png/laboratories_level_s1_03.png
+  - assets/png/laboratories_level_s2_03.png
   - assets/png/laboratories_level_1_03.png
   - assets/png/laboratories_level_2_03.png
+  - assets/png/classroom_level_B_0.png
 
   #   - images/a_dot_ham.jpeg
 
