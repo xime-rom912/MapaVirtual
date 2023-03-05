@@ -4,6 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapavirtual/Controllers/home_contoller.dart';
+import 'package:mapavirtual/accordion_layers.dart';
 import 'package:mapavirtual/container_map_options.dart';
 import 'package:mapavirtual/pages.dart';
 import 'package:mapavirtual/place.dart';
@@ -33,129 +34,316 @@ class MyApp extends StatelessWidget {
   }
 }
 
-//ignore: must_be_immutable
+// //ignore: must_be_immutable
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
   get floatingActionButton => null;
 
   @override
   Widget build(BuildContext context) {
-    final List<Place> places = [
-      const Place('16', LatLng(28.704100198007694, -106.138842846805), 3, 0),
-      const Place('17', LatLng(28.70409552666388, -106.13894403747099), 3, 0),
-      const Place('18', LatLng(28.70408384830348, -106.13902392483887), 3, 0),
-      const Place('19', LatLng(28.704073337778002, -106.13911180094352), 3, 0),
-      const Place('20', LatLng(28.704060491578765, -106.1391916883114), 3, 0),
-      const Place('21', LatLng(28.704051148887423, -106.13927956441604), 3, 0),
-      const Place('22', LatLng(28.70399509272181, -106.13950724341449), 3, 0),
-      const Place('23', LatLng(28.703978743001187, -106.13958979369461), 3, 0),
-      const Place('24', LatLng(28.703943707876963, -106.13967367543087), 3, 0),
-      const Place('25', LatLng(28.70392035112095, -106.13975356279875), 3, 0),
-      const Place('26', LatLng(28.703905169226772, -106.13983877599117), 3, 0),
-      const Place('27', LatLng(28.7038771411086, -106.13991466899064), 3, 0),
-      const Place('28', LatLng(28.704100198007694, -106.138842846805), 3, 1),
-      const Place('29', LatLng(28.70409552666388, -106.13894403747099), 3, 1),
-      const Place('30', LatLng(28.703943707876963, -106.13967367543087), 3, 1),
-      const Place('31', LatLng(28.704073337778002, -106.13911180094352), 3, 1),
-      const Place('32', LatLng(28.704060491578765, -106.1391916883114), 3, 1),
-      const Place('33', LatLng(28.704051148887423, -106.13927956441604), 3, 1),
-      const Place('34', LatLng(28.70399509272181, -106.13950724341449), 3, 1),
-      const Place('35', LatLng(28.703978743001187, -106.13958979369461), 3, 1),
-      const Place('36', LatLng(28.703943707876963, -106.13967367543087), 3, 1),
-      const Place('37', LatLng(28.70392035112095, -106.13975356279875), 3, 1),
-      const Place('38', LatLng(28.703905169226772, -106.13983877599117), 3, 1),
-      const Place('39', LatLng(28.7038771411086, -106.13991466899064), 3, 1),
-      const Place('40', LatLng(28.703756467993674, -106.13866366145555), 4, 0),
-      const Place('41', LatLng(28.703752350935098, -106.13875418600458), 4, 0),
-      const Place('42', LatLng(28.703740587909735, -106.13883800503142), 4, 0),
-      const Place('43', LatLng(28.70373176563983, -106.13892450626713), 4, 0),
-      const Place('44', LatLng(28.703728824883044, -106.13900631363735), 4, 0),
-      const Place('45', LatLng(28.70371882630932, -106.13910019094742), 4, 0),
-      const Place('46', LatLng(28.70366225862001, -106.13931950809999), 4, 0),
-      const Place('47', LatLng(28.70364006964225, -106.1394140414853), 4, 0),
-      const Place('48', LatLng(28.703610873611726, -106.13949259739704), 4, 0),
-      const Place('49', LatLng(28.70357934188958, -106.13957248476491), 4, 0),
-      const Place('50', LatLng(28.70355014584211, -106.13965370358892), 4, 0),
-      const Place('51', LatLng(28.703537299578624, -106.13974823697423), 4, 0),
-      const Place('52', LatLng(28.703756467993674, -106.13866366145555), 4, 1),
-      const Place('53', LatLng(28.703752350935098, -106.13875418600458), 4, 1),
-      const Place('54', LatLng(28.703740587909735, -106.13883800503142), 4, 1),
-      const Place('55', LatLng(28.70373176563983, -106.13892450626713), 4, 1),
-      const Place('56', LatLng(28.703728824883044, -106.13900631363735), 4, 1),
-      const Place('57', LatLng(28.70371882630932, -106.13910019094742), 4, 1),
-      const Place('58', LatLng(28.70366225862001, -106.13931950809999), 4, 1),
-      const Place('59', LatLng(28.70364006964225, -106.1394140414853), 4, 1),
-      const Place('60', LatLng(28.703610873611726, -106.13949259739704), 4, 1),
-      const Place('61', LatLng(28.70357934188958, -106.13957248476491), 4, 1),
-      const Place('62', LatLng(28.70355014584211, -106.13965370358892), 4, 1),
-      const Place('63', LatLng(28.703537299578624, -106.13974823697423), 4, 1),
+    return ChangeNotifierProvider<HomeController>(
+      create: (_) => HomeController(),
+      child: Consumer<HomeController>(
+        builder: (_, HomeController controller, __) {
+          return HomePage(homeController: controller);
+        },
+      ),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({required this.homeController, super.key});
+  final HomeController homeController;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  OverlayEntry? overlayEntry;
+  late final List<BuildingModel> buildings;
+  late final List<Place> places;
+
+  @override
+  void initState() {
+    super.initState();
+
+    debugPrint("RELOAD");
+
+    buildings = <BuildingModel>[
+      BuildingModel(
+        floorToRender: 2,
+        idOfMapRender: "Laboratorios",
+        name: "Laboratorios",
+        floors: <FloorModel>[
+          const FloorModel(
+            name: "Subnivel 2",
+            mapsImage: MapsImage(
+              id: "SL2",
+              coords: LatLng(28.70324537827747, -106.14056450878434),
+              filename: "assets/png/laboratories_level_s2_03.png",
+              size: Size(145, 145),
+            ),
+          ),
+          const FloorModel(
+            name: "Subnivel 1",
+            mapsImage: MapsImage(
+              id: "SL1",
+              coords: LatLng(28.70324537827747, -106.14056450878434),
+              filename: "assets/png/laboratories_level_s1_03.png",
+              size: Size(145, 145),
+            ),
+          ),
+          const FloorModel(
+            name: "Nivel 0",
+            mapsImage: MapsImage(
+              id: "L0",
+              coords: LatLng(28.703230537827747, -106.14046450878434),
+              filename: "assets/png/laboratories_level_0_03.png",
+              size: Size(165, 165),
+            ),
+          ),
+          const FloorModel(
+            name: "Nivel 1",
+            mapsImage: MapsImage(
+              id: "L1",
+              coords: LatLng(28.70324537827747, -106.14056450878434),
+              filename: "assets/png/laboratories_level_1_03.png",
+              size: Size(145, 145),
+            ),
+          ),
+          const FloorModel(
+            name: "Nivel 2",
+            mapsImage: MapsImage(
+              id: "L2",
+              coords: LatLng(28.70324537827747, -106.14056450878434),
+              filename: "assets/png/laboratories_level_2_03.png",
+              size: Size(145, 145),
+            ),
+          ),
+        ],
+        onChangeBuildingFloor: (BuildingModel building, FloorModel floor) =>
+            reloadBuildingFloor(building, floor),
+      ),
+      BuildingModel(
+        floorToRender: 0,
+        idOfMapRender: "EdificioD",
+        name: "Edificio D",
+        floors: <FloorModel>[
+          const FloorModel(
+            name: "Nivel 1",
+            mapsImage: MapsImage(
+              id: "DL1",
+              coords: LatLng(28.70384124721189, -106.13930063844746),
+              filename: "assets/png/classrooms_level_D_1.png",
+              size: Size(170, 106),
+            ),
+          ),
+          const FloorModel(
+            name: "Nivel 2",
+            mapsImage: MapsImage(
+              id: "DL2",
+              coords: LatLng(28.70384124721189, -106.13930063844746),
+              filename: "assets/png/classrooms_level_D_2.png",
+              size: Size(170, 106),
+            ),
+          ),
+        ],
+        onChangeBuildingFloor: (BuildingModel building, FloorModel floor) =>
+            reloadBuildingFloor(building, floor),
+      ),
+      BuildingModel(
+        floorToRender: 0,
+        idOfMapRender: "EdificioE",
+        name: "Edificio E",
+        floors: <FloorModel>[
+          const FloorModel(
+            name: "Nivel 1",
+            mapsImage: MapsImage(
+              id: "EL1",
+              coords: LatLng(28.70388124721189, -106.13926063844746),
+              filename: "assets/png/classrooms_level_E_1.png",
+              size: Size(164, 100),
+            ),
+          ),
+          const FloorModel(
+            name: "Nivel 2",
+            mapsImage: MapsImage(
+              id: "EL2",
+              coords: LatLng(28.70388124721189, -106.13926063844746),
+              filename: "assets/png/classrooms_level_E_2.png",
+              size: Size(164, 100),
+            ),
+          ),
+        ],
+        onChangeBuildingFloor: (BuildingModel building, FloorModel floor) =>
+            reloadBuildingFloor(building, floor),
+      ),
+      BuildingModel(
+        floorToRender: 0,
+        idOfMapRender: "Edificio B",
+        name: "Edificio B - Posgrado",
+        floors: <FloorModel>[
+          const FloorModel(
+            name: "Nivel 1",
+            mapsImage: MapsImage(
+              id: "EL1",
+              coords: LatLng(28.70321537827747, -106.14054450878434),
+              filename: "assets/png/classroom_level_B_0.png",
+              size: Size(145, 145),
+            ),
+          ),
+          const FloorModel(
+            name: "Nivel 2",
+            mapsImage: MapsImage(
+              id: "EL2",
+              coords: LatLng(28.70321537827747, -106.14054450878434),
+              filename: "assets/png/classroom_level_B_1.png",
+              size: Size(145, 145),
+            ),
+          ),
+        ],
+        onChangeBuildingFloor: (BuildingModel building, FloorModel floor) =>
+            reloadBuildingFloor(building, floor),
+      ),
+    ];
+
+    for (int i = 0; i < buildings.length; i++) {
+      var floorToRender = buildings[i].floorToRender;
+      widget.homeController.loadImageOnMap(
+        idRender: buildings[i].idOfMapRender,
+        image: buildings[i].floors[floorToRender].mapsImage,
+      );
+    }
+
+    places = <Place>[
+      const Place('16', LatLng(28.704100198007694, -106.138842846805), 1, 0),
+      const Place('17', LatLng(28.70409552666388, -106.13894403747099), 1, 0),
+      const Place('18', LatLng(28.70408384830348, -106.13902392483887), 1, 0),
+      const Place('19', LatLng(28.704073337778002, -106.13911180094352), 1, 0),
+      const Place('20', LatLng(28.704060491578765, -106.1391916883114), 1, 0),
+      const Place('21', LatLng(28.704051148887423, -106.13927956441604), 1, 0),
+      const Place('22', LatLng(28.70399509272181, -106.13950724341449), 1, 0),
+      const Place('23', LatLng(28.703978743001187, -106.13958979369461), 1, 0),
+      const Place('24', LatLng(28.703943707876963, -106.13967367543087), 1, 0),
+      const Place('25', LatLng(28.70392035112095, -106.13975356279875), 1, 0),
+      const Place('26', LatLng(28.703905169226772, -106.13983877599117), 1, 0),
+      const Place('27', LatLng(28.7038771411086, -106.13991466899064), 1, 0),
+      const Place('28', LatLng(28.704100198007694, -106.138842846805), 1, 1),
+      const Place('29', LatLng(28.70409552666388, -106.13894403747099), 1, 1),
+      const Place('30', LatLng(28.703943707876963, -106.13967367543087), 1, 1),
+      const Place('31', LatLng(28.704073337778002, -106.13911180094352), 1, 1),
+      const Place('32', LatLng(28.704060491578765, -106.1391916883114), 1, 1),
+      const Place('33', LatLng(28.704051148887423, -106.13927956441604), 1, 1),
+      const Place('34', LatLng(28.70399509272181, -106.13950724341449), 1, 1),
+      const Place('35', LatLng(28.703978743001187, -106.13958979369461), 1, 1),
+      const Place('36', LatLng(28.703943707876963, -106.13967367543087), 1, 1),
+      const Place('37', LatLng(28.70392035112095, -106.13975356279875), 1, 1),
+      const Place('38', LatLng(28.703905169226772, -106.13983877599117), 1, 1),
+      const Place('39', LatLng(28.7038771411086, -106.13991466899064), 1, 1),
+      const Place('40', LatLng(28.703756467993674, -106.13866366145555), 2, 0),
+      const Place('41', LatLng(28.703752350935098, -106.13875418600458), 2, 0),
+      const Place('42', LatLng(28.703740587909735, -106.13883800503142), 2, 0),
+      const Place('43', LatLng(28.70373176563983, -106.13892450626713), 2, 0),
+      const Place('44', LatLng(28.703728824883044, -106.13900631363735), 2, 0),
+      const Place('45', LatLng(28.70371882630932, -106.13910019094742), 2, 0),
+      const Place('46', LatLng(28.70366225862001, -106.13931950809999), 2, 0),
+      const Place('47', LatLng(28.70364006964225, -106.1394140414853), 2, 0),
+      const Place('48', LatLng(28.703610873611726, -106.13949259739704), 2, 0),
+      const Place('49', LatLng(28.70357934188958, -106.13957248476491), 2, 0),
+      const Place('50', LatLng(28.70355014584211, -106.13965370358892), 2, 0),
+      const Place('51', LatLng(28.703537299578624, -106.13974823697423), 2, 0),
+      const Place('52', LatLng(28.703756467993674, -106.13866366145555), 2, 1),
+      const Place('53', LatLng(28.703752350935098, -106.13875418600458), 2, 1),
+      const Place('54', LatLng(28.703740587909735, -106.13883800503142), 2, 1),
+      const Place('55', LatLng(28.70373176563983, -106.13892450626713), 2, 1),
+      const Place('56', LatLng(28.703728824883044, -106.13900631363735), 2, 1),
+      const Place('57', LatLng(28.70371882630932, -106.13910019094742), 2, 1),
+      const Place('58', LatLng(28.70366225862001, -106.13931950809999), 2, 1),
+      const Place('59', LatLng(28.70364006964225, -106.1394140414853), 2, 1),
+      const Place('60', LatLng(28.703610873611726, -106.13949259739704), 2, 1),
+      const Place('61', LatLng(28.70357934188958, -106.13957248476491), 2, 1),
+      const Place('62', LatLng(28.70355014584211, -106.13965370358892), 2, 1),
+      const Place('63', LatLng(28.703537299578624, -106.13974823697423), 2, 1),
       const Place(
           'Baño 1:E', LatLng(28.703858233086883, -106.13857674669698), 4, 0),
       const Place(
           'Baño 2:E', LatLng(28.703587294174856, -106.13985893896346), 4, 0),
       const Place('Escalera 1:D',
-          LatLng(28.704191258575207, -106.13894020473907), 3, 0),
+          LatLng(28.704191258575207, -106.13894020473907), 2, 0),
       const Place(
-          'Escalera 2:D', LatLng(28.70398869607634, -106.13986397510558), 3, 0),
+          'Escalera 2:D', LatLng(28.70398869607634, -106.13986397510558), 2, 0),
       const Place(
           'Rampa 1:E', LatLng(28.703786733021754, -106.13862478331754), 4, 0),
       const Place(
           'Rampa 2:E', LatLng(28.70357095907735, -106.13981129271946), 4, 0),
     ];
-    return ChangeNotifierProvider<HomeController>(
-      create: (_) => HomeController(),
-      child: Consumer<HomeController>(
-        builder: (_, controller, __) => Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.deepPurple,
-            automaticallyImplyLeading: false,
-            actions: <Widget>[
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, Routes.ARCORE);
-                },
-                child: const Text('Camara'),
-              ),
-            ],
-            title: Padding(
-              padding: const EdgeInsets.only(bottom: 10, right: 10),
-              child: ListTile(
-                onTap: () async {
-                  final selectedPlace = await showSearch(
-                    context: context,
-                    delegate: SearchPlacesDelegate(places),
-                  );
-                  if (selectedPlace != null) {
-                    controller.onTap(selectedPlace.position);
-                  }
-                },
-                title: const Text(
-                  'Buscar',
-                  style: TextStyle(color: Colors.white, fontSize: 24),
-                ),
-              ),
+  }
+
+  void reloadBuildingFloor(BuildingModel building, FloorModel floor) {
+    final MapsImage image = floor.mapsImage;
+    widget.homeController
+        .replaceImageOnMap(idRender: building.idOfMapRender, image: image);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.deepPurple,
+        automaticallyImplyLeading: false,
+        actions: <Widget>[
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, Routes.ARCORE);
+            },
+            child: const Icon(Icons.photo_camera_back_outlined),
+          ),
+        ],
+        title: Padding(
+          padding: const EdgeInsets.only(bottom: 10, right: 10),
+          child: ListTile(
+            onTap: () async {
+              final selectedPlace = await showSearch(
+                context: context,
+                delegate: SearchPlacesDelegate(places),
+              );
+              if (selectedPlace != null) {
+                widget.homeController.onTap(selectedPlace.position);
+                debugPrint(
+                    "DEV: ${selectedPlace.building} ${selectedPlace.floor}");
+                buildings[selectedPlace.building]
+                    .setFloorToRender(selectedPlace.floor);
+              }
+            },
+            title: const Text(
+              'Buscar',
+              style: TextStyle(color: Colors.white, fontSize: 24),
             ),
           ),
-          body: GoogleMap(
-            markers: controller.markers,
-            mapType: MapType.normal,
-            initialCameraPosition: controller.initialCameraPosition,
-            myLocationButtonEnabled: true,
-            myLocationEnabled: true,
-            onMapCreated: controller.onMapCreated,
-            groundOverlays: controller.classroomsGroundOverlaysSet,
-            polylines: controller.currentRoute,
-            onTap: controller.onTap,
-            zoomControlsEnabled: false,
-          ),
-          floatingActionButton: ContainerMapOptions(
-            homeController: controller,
-            onRouteDisplay: () => handleRouteDisplay(context, controller),
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-          // This trailing comma makes auto-formatting nicer for build methods.
         ),
       ),
+      body: GoogleMap(
+        markers: widget.homeController.markers,
+        mapType: MapType.normal,
+        initialCameraPosition: widget.homeController.initialCameraPosition,
+        myLocationButtonEnabled: true,
+        myLocationEnabled: true,
+        onMapCreated: widget.homeController.onMapCreated,
+        groundOverlays: widget.homeController.classroomsGroundOverlaysSet,
+        polylines: widget.homeController.currentRoute,
+        onTap: widget.homeController.onTap,
+        zoomControlsEnabled: false,
+      ),
+      floatingActionButton: ContainerMapOptions(
+        homeController: widget.homeController,
+        onRouteDisplay: () =>
+            handleRouteDisplay(context, widget.homeController),
+        onOverlayDisplayCallback: () => showOverlay(),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
@@ -196,5 +384,40 @@ class MyHomePage extends StatelessWidget {
         );
       },
     );
+  }
+
+  void showOverlay() {
+    final overlay = Overlay.of(context)!;
+    overlayEntry = OverlayEntry(builder: (context) => buildOverlay());
+    overlay.insert(overlayEntry!);
+  }
+
+  Widget buildOverlay() {
+    return GestureDetector(
+      child: Container(
+        color: Colors.black.withOpacity(0.5),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height * 0.75,
+              maxWidth: MediaQuery.of(context).size.width - 20,
+            ),
+            child: AccordionLayers(
+              buildings: buildings,
+              homeController: widget.homeController,
+            ),
+          ),
+        ),
+      ),
+      onTap: () {
+        debugPrint("HOLA");
+        hideOverlay();
+      },
+    );
+  }
+
+  void hideOverlay() {
+    overlayEntry?.remove();
+    overlayEntry = null;
   }
 }

@@ -5,39 +5,40 @@ import 'package:mapavirtual/place.dart';
 
 class SearchPlacesDelegate extends SearchDelegate<Place> {
   final List<Place> places;
-  List<Place> _filter=[];
+  List<Place> _filter = [];
 
   SearchPlacesDelegate(this.places);
+
   @override
   List<Widget>? buildActions(BuildContext context) {
-    return [IconButton(
-        onPressed: (){
+    return [
+      IconButton(
+        onPressed: () {
           query = "";
         },
         icon: const Icon(Icons.close),
-    ),
+      ),
     ];
   }
 
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-        onPressed: (){
-          close(context, const Place("",LatLng(0,0),0,0));
-        },
-        icon: const Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, const Place("", LatLng(0, 0), -1, -1));
+      },
+      icon: const Icon(Icons.arrow_back),
     );
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    if(query != null && places.contains(query.toLowerCase())){
+    if (query != "" && places.contains(query.toLowerCase())) {
       return ListTile(
         title: Text(query),
-        onTap: (){
-        },
+        onTap: () {},
       );
-    }else{
+    } else {
       return ListTile(
         title: Text("No se encontraron resultados"),
         onTap: () {},
@@ -51,18 +52,22 @@ class SearchPlacesDelegate extends SearchDelegate<Place> {
       return place.name.toLowerCase().contains(query.trim().toLowerCase());
     }).toList();
     return ListView.builder(
-        itemCount: _filter.length,
-        itemBuilder: (_,index) {
-          return ListTile(
-            title: Text(_filter[index].name),
-            trailing: const Icon(
-              Icons.arrow_forward_ios,
-            ),
-            onTap: (){
-              close(context, Place(_filter[index].name, _filter[index].position,_filter[index].building,_filter[index].flor));
-            },
-          );
-        },
+      itemCount: _filter.length,
+      itemBuilder: (_, index) {
+        return ListTile(
+          key: Key(_filter[index].name),
+          title: Text(_filter[index].name),
+          trailing: const Icon(
+            Icons.arrow_forward_ios,
+          ),
+          onTap: () {
+            close(
+                context,
+                Place(_filter[index].name, _filter[index].position,
+                    _filter[index].building, _filter[index].floor));
+          },
+        );
+      },
     );
   }
 }
