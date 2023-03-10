@@ -172,6 +172,27 @@ class _ContainerMapOptionsState extends State<ContainerMapOptions> {
               idRender: building.idOfMapRender, image: image);
         },
       ),
+      BuildingModel(
+        floorToRender: 0,
+        idOfMapRender: "Edificios",
+        name: "Edificios",
+        floors: <FloorModel>[
+          const FloorModel(
+            name: "Nivel 1",
+            mapsImage: MapsImage(
+              id: "E",
+              coords: LatLng(28.70339124721189, -106.13888063844746),
+              filename: "assets/png/building.png",
+              size: Size(210, 210),
+            ),
+          ),
+        ],
+        onChangeBuildingFloor: (BuildingModel building, FloorModel floor) {
+          final MapsImage image = floor.mapsImage;
+          widget.homeController.replaceImageOnMap(
+              idRender: building.idOfMapRender, image: image);
+        },
+      ),
     ];
     for (int i = 0; i < buildings.length; i++) {
       var floorToRender = buildings[i].floorToRender;

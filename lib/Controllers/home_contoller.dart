@@ -56,6 +56,9 @@ class HomeController extends ChangeNotifier {
   void onTap(LatLng position /*, int building, int level*/) {
     currentRoute.clear();
     isButtonEnable = true;
+    print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+    print(position);
+    print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     if (flag) {
       const id = '0';
       marker(id, position);
@@ -70,19 +73,24 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
- onMapCreated(GoogleMapController controller) async {
-    debugPrint("THE MAP HAS BEEN CREATED AAAAAAAAAAAAAAAAAAAAAAAAAA");
-    // await openClassroomsImage();
 
-    // await loadImageOnMap(
-    //   image: MapsImage(
-    //       id: "1",
-    //       filename: edificioCImageFilename,
-    //       coords: edificioCPosition,
-    //       size: edificioCSize),
-    // );
-    _controller.complete(controller);
-    debugPrint("GroundOverlaySet $classroomsGroundOverlaysSet");
+  onMapCreated(GoogleMapController controller) async {
+    onMapCreated(GoogleMapController controller) async {
+      debugPrint("THE MAP HAS BEEN CREATED AAAAAAAAAAAAAAAAAAAAAAAAAA");
+      // await openClassroomsImage();
+      // await openClassroomsImage();
+
+      // await loadImageOnMap(
+      //   image: MapsImage(
+      //       id: "1",
+      //       filename: edificioCImageFilename,
+      //       coords: edificioCPosition,
+      //       size: edificioCSize),
+      // );
+      _controller.complete(controller);
+      debugPrint("GroundOverlaySet $classroomsGroundOverlaysSet");
+      notifyListeners();
+    }
   }
 
   loadImageOnMap({
@@ -131,15 +139,6 @@ class HomeController extends ChangeNotifier {
     );
   }
 
-  final classroomsImageFilename = "assets/png/classrooms_level_D_2.png";
-  final classroomsPosition =
-      const LatLng(28.70384124721189, -106.13930063844746);
-  final classroomsSize = const Size(170, 106);
-
-  final edificioCImageFilename = "assets/png/laboratories_level_0_03.png";
-  final edificioCPosition =
-      const LatLng(28.703168888427548, -106.14043582907642);
-  final edificioCSize = const Size(110, 110);
 
   final initialCameraPosition = const CameraPosition(
     target: LatLng(28.703206295599326, -106.14058572967595),
