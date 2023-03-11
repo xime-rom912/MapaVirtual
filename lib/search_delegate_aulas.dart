@@ -33,7 +33,7 @@ class SearchPlacesDelegate extends SearchDelegate<Place> {
 
   @override
   Widget buildResults(BuildContext context) {
-    if (query != "" && places.contains(query.toLowerCase())) {
+    if (query != "" && places.contains(query)) {
       return ListTile(
         title: Text(query),
         onTap: () {},
