@@ -30,40 +30,19 @@ class _RequestPermissionPageState extends State<RequestPermissionPage>
             _goToHome();
             break;
           case PermissionStatus.permanentlyDenied:
-            showDialog(
-              context: context,
-              builder: (_) => AlertDialog(
-                title: const Text("INFO"),
-                content: const Text("Necesita otorgar permisos."),
-                actions: [
-                  TextButton(
-                    onPressed: () async {
-                      Navigator.pop(context);
-                      _fromSettings = await openAppSettings();
-                    },
-                    child: const Text("Ir a ajustes"),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text("Cancelar"),
-                  ),
-                ],
-              ),
-            );
+            _goToHome();
             break;
           case PermissionStatus.undetermined:
-            // TODO: Handle this case.
+            _goToHome();
             break;
           case PermissionStatus.denied:
-            // TODO: Handle this case.
+            _goToHome();
             break;
           case PermissionStatus.restricted:
-            // TODO: Handle this case.
+            _goToHome();
             break;
           case PermissionStatus.limited:
-            // TODO: Handle this case.
+            _goToHome();
             break;
         }
       },

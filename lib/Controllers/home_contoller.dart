@@ -13,7 +13,6 @@ class HomeController extends ChangeNotifier {
   final LatLng fromPoint = const LatLng(28.704521, -106.138989);
   final LatLng toPoint = const LatLng(28.703741, -106.140353);
   // late GoogleMapController _controllerMap;
-  late bool flag = true;
   late bool isButtonEnable = false;
 
   final Map<MarkerId, Marker> _markers = {};
@@ -53,22 +52,15 @@ class HomeController extends ChangeNotifier {
     _markers[markerId] = marker;
   }
 
-  void onTap(LatLng position /*, int building, int level*/) {
+  void onTap(LatLng position, bool flag /*, int building, int level*/) {
     currentRoute.clear();
     isButtonEnable = true;
-    print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-    print(position);
-    print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     if (flag) {
       const id = '0';
       marker(id, position);
-      //cambio(building,level)
-      flag = false;
     } else {
       const id = '1';
       marker(id, position);
-      //cambio(building,level)
-      flag = true;
     }
     notifyListeners();
   }

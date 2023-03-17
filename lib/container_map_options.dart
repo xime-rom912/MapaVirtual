@@ -56,6 +56,7 @@ class _ContainerMapOptionsState extends State<ContainerMapOptions> {
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: FloatingActionButton(
+                    tooltip: "Niveles de edificios",
                     key: const Key("Layers button"),
                     onPressed: () => {widget.onOverlayDisplayCallback(),},
                     backgroundColor: Colors.deepPurple,
@@ -74,6 +75,7 @@ class _ContainerMapOptionsState extends State<ContainerMapOptions> {
                       }
                     },
                     backgroundColor: widget.homeController.isButtonEnable ? Colors.deepPurple : Colors.grey,
+                    tooltip: "Indicaciones",
                     child: const Icon(Icons.alt_route_rounded),
                   ),
                 ),
