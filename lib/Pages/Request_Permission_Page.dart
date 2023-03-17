@@ -1,5 +1,4 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mapavirtual/Controllers/Request_Permission_Controller.dart';
@@ -75,17 +74,18 @@ class _RequestPermissionPageState extends State<RequestPermissionPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          alignment: Alignment.center,
-          child: ElevatedButton(
-            child: const Text("Allow"),
-            onPressed: () {
-              _controller.request();
-            },
-          ),
+      body: Center(
+        child:Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset("assets/png/uach.png",alignment:Alignment.center,),
+            ElevatedButton(
+              child: const Text("Allow"),
+              onPressed: () {
+                _controller.request();
+              },
+            ),
+          ],
         ),
       ),
     );
