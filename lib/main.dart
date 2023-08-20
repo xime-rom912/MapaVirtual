@@ -81,6 +81,72 @@ class _HomePageState extends State<HomePage> {
     buildings = <BuildingModel>[
       BuildingModel(
         floorToRender: 0,
+        idOfMapRender: "administrativos",
+        name: "Administrativos",
+        floors: <FloorModel>[
+          const FloorModel(
+            name: "Nivel 1",
+            mapsImage: MapsImage(
+              id: "A1",
+              coords: LatLng(28.70274924701189, -106.13886063804746),
+              filename: "assets/png/admin_1.png",
+              size: Size(82, 50),
+            ),
+          ),
+          const FloorModel(
+            name: "Nivel 2",
+            mapsImage: MapsImage(
+              id: "A2",
+              coords: LatLng(28.70274924701189, -106.13886063804746),
+              filename: "assets/png/admin_2.png",
+              size: Size(82, 50),
+            ),
+          ),
+        ],
+        onChangeBuildingFloor: (BuildingModel building, FloorModel floor) =>
+            reloadBuildingFloor(building, floor),
+      ),
+      BuildingModel(
+        floorToRender: 0,
+        idOfMapRender: "cubiculos",
+        name: "Edificio A - Cubiculos",
+        floors: <FloorModel>[
+          const FloorModel(
+            name: "Nivel 1",
+            mapsImage: MapsImage(
+              id: "A",
+              coords: LatLng(28.70269424721189, -106.13969863844746),
+              filename: "assets/png/cub_1.png",
+              size: Size(48, 53),
+            ),
+          ),
+          const FloorModel(
+            name: "Nivel 2",
+            mapsImage: MapsImage(
+              id: "A",
+              coords: LatLng(28.70269424721189, -106.13969863844746),
+              filename: "assets/png/cub_2.png",
+              size: Size(48, 53),
+            ),
+          ),
+          const FloorModel(
+            name: "Nivel 3",
+            mapsImage: MapsImage(
+              id: "A",
+              coords: LatLng(28.70269424721189, -106.13969863844746),
+              filename: "assets/png/cub_3.png",
+              size: Size(48, 53),
+            ),
+          )
+        ],
+        onChangeBuildingFloor: (BuildingModel building, FloorModel floor) {
+          final MapsImage image = floor.mapsImage;
+          widget.homeController.replaceImageOnMap(
+              idRender: building.idOfMapRender, image: image);
+        },
+      ),
+      BuildingModel(
+        floorToRender: 0,
         idOfMapRender: "Edificio B",
         name: "Edificio B - Posgrado",
         floors: <FloorModel>[
@@ -109,7 +175,7 @@ class _HomePageState extends State<HomePage> {
       BuildingModel(
         floorToRender: 2,
         idOfMapRender: "Laboratorios",
-        name: "Laboratorios",
+        name: "Edificio C - Laboratorios",
         floors: <FloorModel>[
           const FloorModel(
             name: "Subnivel 2",
@@ -163,7 +229,7 @@ class _HomePageState extends State<HomePage> {
       BuildingModel(
         floorToRender: 0,
         idOfMapRender: "EdificioD",
-        name: "Edificio D",
+        name: "Edificio D - Aulas",
         floors: <FloorModel>[
           const FloorModel(
             name: "Nivel 1",
@@ -190,7 +256,7 @@ class _HomePageState extends State<HomePage> {
       BuildingModel(
         floorToRender: 0,
         idOfMapRender: "EdificioE",
-        name: "Edificio E",
+        name: "Edificio E - Aulas",
         floors: <FloorModel>[
           const FloorModel(
             name: "Nivel 1",
@@ -216,24 +282,21 @@ class _HomePageState extends State<HomePage> {
       ),
       BuildingModel(
         floorToRender: 0,
-        idOfMapRender: "Edificios",
-        name: "Edificios",
+        idOfMapRender: "edificios",
+        name: "edificios",
         floors: <FloorModel>[
           const FloorModel(
             name: "Nivel 1",
             mapsImage: MapsImage(
-              id: "E",
-              coords: LatLng(28.70339124721189, -106.13888063844746),
+              id: "EF",
+              coords: LatLng(28.70365123611189, -106.13838192842746),
               filename: "assets/png/building.png",
-              size: Size(220, 210),
+              size: Size(110, 168),
             ),
           ),
         ],
-        onChangeBuildingFloor: (BuildingModel building, FloorModel floor) {
-          final MapsImage image = floor.mapsImage;
-          widget.homeController.replaceImageOnMap(
-              idRender: building.idOfMapRender, image: image);
-        },
+        onChangeBuildingFloor: (BuildingModel building, FloorModel floor) =>
+            reloadBuildingFloor(building, floor),
       ),
     ];
 

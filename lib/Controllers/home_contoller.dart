@@ -54,10 +54,10 @@ class HomeController extends ChangeNotifier {
 
   void onTap(LatLng position, bool flag /*, int building, int level*/) {
     currentRoute.clear();
-    isButtonEnable = true;
     if (flag) {
       const id = '0';
       marker(id, position);
+      isButtonEnable = true;
     } else {
       const id = '1';
       marker(id, position);

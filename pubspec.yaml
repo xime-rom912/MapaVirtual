@@ -92,6 +92,11 @@ flutter:
   - assets/png/classroom_level_B_1.png
   - assets/png/building.png
   - assets/png/uach.png
+  - assets/png/admin_1.png
+  - assets/png/admin_2.png
+  - assets/png/cub_2.png
+  - assets/png/cub_1.png
+  - assets/png/cub_3.png
 
   #   - images/a_dot_ham.jpeg
 

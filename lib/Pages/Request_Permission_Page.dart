@@ -80,7 +80,7 @@ class _RequestPermissionPageState extends State<RequestPermissionPage>
           children: [
             Image.asset("assets/png/uach.png",alignment:Alignment.center,),
             ElevatedButton(
-              child: const Text("Allow"),
+              child: const Text("Permitir permisos de ubicacion"),
               onPressed: () {
                 _controller.request();
               },
