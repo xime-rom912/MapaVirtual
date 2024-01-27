@@ -28,7 +28,7 @@ class HomeController extends ChangeNotifier {
   Future<void> rutaView(bool flag) async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    LatLng myLocation = LatLng(position.latitude, position.longitude);
+    LatLng myLocation = LatLng(position.longitude, position.latitude);
     LatLng fromPoint = markers.first.position;
     LatLng toPoint = markers.last.position;
 

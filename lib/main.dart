@@ -459,7 +459,7 @@ class _HomePageState extends State<HomePage> {
                       onTap: () async {
                         myPosition();
                         if (isLocationServiceEnabled) {
-                          places.insert(0, Place('Mi ubicación', LatLng(position.longitude, position.latitude), 0, 0));
+                          places.insert(0, const Place('Mi ubicación', LatLng(position.longitude, position.latitude), 0, 0));
                         }
                         final selectedPlace = await showSearch(
                           context: context,
