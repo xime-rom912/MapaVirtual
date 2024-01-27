@@ -428,13 +428,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.deepPurple,
-          centerTitle: true,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30),bottomRight:Radius.circular(30), topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-          ),
-          title: const Text("UACh Map",style: TextStyle(color: Colors.white,)),
-          /*actions: <Widget>[
+        backgroundColor: Colors.deepPurple,
+        centerTitle: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30),bottomRight:Radius.circular(30), topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+        ),
+        title: const Text("UACh Map",style: TextStyle(color: Colors.white,)),
+        /*actions: <Widget>[
             ElevatedButton(
               onPressed: () {
                 Navigator.pushReplacementNamed(context, Routes.ARCORE);
@@ -442,89 +442,89 @@ class _HomePageState extends State<HomePage> {
               child: const Icon(Icons.photo_camera_back_outlined),
             ),
           ],*/
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(78),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  AnimatedOpacity(
-                    opacity:  _visible ? 1.0 : 0.0,
-                    duration: const Duration(milliseconds: 500),
-                    child: ListTile(
-                      focusColor: Colors.white,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50),bottomRight:Radius.circular(50), topLeft: Radius.circular(50), topRight: Radius.circular(50)),
-                      ),
-                      leading: const Icon(Icons.location_on),
-                      onTap: () async {
-                        myPosition();
-                        if (isLocationServiceEnabled) {
-                          places.insert(0, Place('Mi ubicación', LatLng(position.longitude, position.latitude), 0, 0));
-                        }
-                        final selectedPlace = await showSearch(
-                          context: context,
-                          delegate: SearchPlacesDelegate(places),
-                        );
-                        if (selectedPlace != null) {
-                          if(selectedPlace.name == 'Mi ubicación'){
-                            flag = true;
-                            widget.homeController.onTap(LatLng(position.longitude, position.latitude),false);
-                            setState(() {
-                              text1 = selectedPlace.name;
-                            });
-                            places.removeAt(0);
-                          }else {
-                            flag = false;
-                            if (isLocationServiceEnabled) {
-                              places.removeAt(0);
-                            }
-                            widget.homeController.onTap(selectedPlace.position,false);
-                            debugPrint(
-                                "DEV: ${selectedPlace.building} ${selectedPlace
-                                    .floor}");
-                            buildings[selectedPlace.building]
-                                .setFloorToRender(selectedPlace.floor);
-                            text1 = selectedPlace.name;
-                          }
-                        } else {
-                          text1 = 'Punto de llegada';
-                        }
-                      },
-                      title: Text(
-                        text1,
-                        style: const TextStyle(color: Colors.white, fontSize: 14),
-                      ),
-                    ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(78),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              AnimatedOpacity(
+                opacity:  _visible ? 1.0 : 0.0,
+                duration: const Duration(milliseconds: 500),
+                child: ListTile(
+                  focusColor: Colors.white,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50),bottomRight:Radius.circular(50), topLeft: Radius.circular(50), topRight: Radius.circular(50)),
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.location_on),
-                    focusColor: Colors.white,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50),bottomRight:Radius.circular(50), topLeft: Radius.circular(50), topRight: Radius.circular(50)),
-                    ),
-                    onTap: () async {
-                      final selectedPlace = await showSearch(
-                        context: context,
-                        delegate: SearchPlacesDelegate(places),
-                      );
-                      if (selectedPlace != null) {
-                        widget.homeController.onTap(selectedPlace.position,true);
+                  leading: const Icon(Icons.location_on),
+                  onTap: () async {
+                    myPosition();
+                    if (isLocationServiceEnabled) {
+                      places.insert(0, Place('Mi ubicación', LatLng(position.longitude, position.latitude), 0, 0));
+                    }
+                    final selectedPlace = await showSearch(
+                      context: context,
+                      delegate: SearchPlacesDelegate(places),
+                    );
+                    if (selectedPlace != null) {
+                      if(selectedPlace.name == 'Mi ubicación'){
+                        flag = true;
+                        widget.homeController.onTap(LatLng(position.longitude, position.latitude),false);
+                        setState(() {
+                          text1 = selectedPlace.name;
+                        });
+                        places.removeAt(0);
+                      }else {
+                        flag = false;
+                        if (isLocationServiceEnabled) {
+                          places.removeAt(0);
+                        }
+                        widget.homeController.onTap(selectedPlace.position,false);
                         debugPrint(
-                            "DEV: ${selectedPlace.building} ${selectedPlace.floor}");
+                            "DEV: ${selectedPlace.building} ${selectedPlace
+                                .floor}");
                         buildings[selectedPlace.building]
                             .setFloorToRender(selectedPlace.floor);
-                        text2 = selectedPlace.name;
-                      }else{
-                        text2 = 'Punto de llegada';
+                        text1 = selectedPlace.name;
                       }
-                    },
-                    title: Text(
-                      text2,
-                      style: const TextStyle(color: Colors.white, fontSize: 14),
-                    ),
+                    } else {
+                      text1 = 'Punto de llegada';
+                    }
+                  },
+                  title: Text(
+                    text1,
+                    style: const TextStyle(color: Colors.white, fontSize: 14),
                   ),
-                ],
+                ),
               ),
+              ListTile(
+                leading: const Icon(Icons.location_on),
+                focusColor: Colors.white,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50),bottomRight:Radius.circular(50), topLeft: Radius.circular(50), topRight: Radius.circular(50)),
+                ),
+                onTap: () async {
+                  final selectedPlace = await showSearch(
+                    context: context,
+                    delegate: SearchPlacesDelegate(places),
+                  );
+                  if (selectedPlace != null) {
+                    widget.homeController.onTap(selectedPlace.position,true);
+                    debugPrint(
+                        "DEV: ${selectedPlace.building} ${selectedPlace.floor}");
+                    buildings[selectedPlace.building]
+                        .setFloorToRender(selectedPlace.floor);
+                    text2 = selectedPlace.name;
+                  }else{
+                    text2 = 'Punto de llegada';
+                  }
+                },
+                title: Text(
+                  text2,
+                  style: const TextStyle(color: Colors.white, fontSize: 14),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       body: GoogleMap(
@@ -548,15 +548,15 @@ class _HomePageState extends State<HomePage> {
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-    myPosition() async {
-      isLocationServiceEnabled = await Geolocator
-          .isLocationServiceEnabled();
-      if (isLocationServiceEnabled) {
-        position = await Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.high);
-      }
-      return isLocationServiceEnabled;
+  myPosition() async {
+    isLocationServiceEnabled = await Geolocator
+        .isLocationServiceEnabled();
+    if (isLocationServiceEnabled) {
+      position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
     }
+    return isLocationServiceEnabled;
+  }
 
   handleRouteDisplay(context, controller) {
     controller.loadProgress();

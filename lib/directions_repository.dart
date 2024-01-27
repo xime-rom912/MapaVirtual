@@ -22,7 +22,7 @@ class DirectionsRepository{
         'origin': '${origin.latitude},${origin.longitude}',
         'destination':'${destination.latitude},${destination.longitude}',
         'mode':'walking',
-        'key': 'AIzaSyBwMSII7CzebpO3ozVZjp_5Gz02iaySkyk',
+        'key': 'AIzaSyCPLt9m0WmcDiYibqKWzpvMYzL0DTZZaK0',
       },
     );
     if(response.statusCode == 200){
